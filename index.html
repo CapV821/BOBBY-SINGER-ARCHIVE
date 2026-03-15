@@ -1,24 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>Bobby Singer Archive</title>
 
 <style>
 
-/* ОСНОВА */
-
 body{
-background-image:url("background.jpg");
+background:url("background.jpeg") no-repeat center center fixed;
 background-size:cover;
-background-position:center;
-background-attachment:fixed;
-
-color:#7fdfff;
+color:#8fe9ff;
 font-family:Courier New, monospace;
-padding:30px;
 margin:0;
-overflow:hidden;
+padding:40px;
 }
 
 /* затемнение */
@@ -30,8 +24,8 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.75);
-z-index:-3;
+background:rgba(0,0,0,0.8);
+z-index:-1;
 }
 
 /* скан линии */
@@ -46,129 +40,86 @@ height:100%;
 background:repeating-linear-gradient(
 transparent,
 transparent 2px,
-rgba(0,0,0,0.3) 3px
+rgba(0,0,0,0.35) 3px
 );
 pointer-events:none;
-z-index:5;
-}
-
-/* мерцание */
-
-@keyframes flicker{
-0%{opacity:0.97}
-50%{opacity:1}
-100%{opacity:0.96}
-}
-
-body{
-animation:flicker 3s infinite;
-}
-
-/* ПЫЛЬ */
-
-#dust{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-pointer-events:none;
-z-index:-1;
-}
-
-.particle{
-position:absolute;
-width:3px;
-height:3px;
-background:#7fdfff;
-border-radius:50%;
-opacity:0.4;
-animation:float linear infinite;
-}
-
-@keyframes float{
-from{transform:translateY(100vh)}
-to{transform:translateY(-10vh)}
 }
 
 /* текст */
 
 h1{
-color:#9fe8ff;
-text-shadow:0 0 10px #2bdfff;
+color:#b8f2ff;
+text-shadow:0 0 10px #3bdfff;
 }
 
-/* папки */
-
 .folder{
-margin-top:20px;
+margin-top:25px;
 }
 
 .file{
-cursor:pointer;
 margin-left:20px;
+cursor:pointer;
 }
 
 .file:hover{
 color:white;
 }
 
-/* контент */
+/* окно контента */
 
 #content{
 margin-top:30px;
-border-top:1px solid #7fdfff;
+border-top:1px solid #8fe9ff;
 padding-top:20px;
-min-height:200px;
+min-height:260px;
 }
 
-/* формы */
+/* терминал */
 
-input{
+#terminal{
+margin-top:40px;
+border:1px solid #8fe9ff;
+padding:15px;
 background:black;
-border:1px solid #7fdfff;
-color:#7fdfff;
-padding:5px;
+}
+
+#terminalInput{
+width:100%;
+background:black;
+border:none;
+color:#8fe9ff;
+font-family:Courier New;
+outline:none;
+}
+
+/* музыка */
+
+#musicBox{
+position:fixed;
+right:20px;
+top:30px;
+background:black;
+border:1px solid #8fe9ff;
+padding:10px;
 }
 
 button{
 background:black;
-border:1px solid #7fdfff;
-color:#7fdfff;
-padding:5px;
+border:1px solid #8fe9ff;
+color:#8fe9ff;
+padding:6px 10px;
 cursor:pointer;
 }
 
 button:hover{
-background:#7fdfff;
+background:#8fe9ff;
 color:black;
 }
 
-/* громкость */
-
-#volumeControl{
-position:fixed;
-right:20px;
-top:50%;
-transform:translateY(-50%);
-background:rgba(0,0,0,0.7);
-padding:15px;
-border:1px solid #7fdfff;
-}
-
-/* демонический символ */
-
-#demon{
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-font-size:120px;
-color:red;
-display:none;
-opacity:0.8;
-text-shadow:0 0 30px red;
-z-index:10;
+input{
+background:black;
+border:1px solid #8fe9ff;
+color:#8fe9ff;
 }
 
 </style>
@@ -176,131 +127,177 @@ z-index:10;
 
 <body>
 
-<div id="dust"></div>
-<div id="demon">⛧</div>
-
 <h1>BOBBY SINGER ARCHIVE</h1>
-<p>Recovered files from damaged hard drive...</p>
+<p>Hunter database restored. Some files corrupted.</p>
 
 <div class="folder">
 
 <strong>MONSTERS</strong>
 
-<div class="file" onclick="openFile('wendigo')">wendigo.txt</div>
 <div class="file" onclick="openFile('vampire')">vampire.txt</div>
-<div class="file" onclick="openFile('locked')">unknown_creature.txt (LOCKED)</div>
+<div class="file" onclick="openFile('wendigo')">wendigo.txt</div>
+<div class="file" onclick="openFile('ghost')">ghost.txt</div>
+<div class="file" onclick="openFile('shapeshifter')">shapeshifter.txt</div>
+<div class="file" onclick="openFile('demon')">demon.txt</div>
+<div class="file" onclick="openFile('angel')">angel.txt</div>
+<div class="file" onclick="openFile('ghoul')">ghoul.txt</div>
+<div class="file" onclick="openFile('werewolf')">werewolf.txt</div>
+<div class="file" onclick="openFile('reaper')">reaper.txt</div>
+<div class="file" onclick="openFile('leviathan')">leviathan.txt</div>
 
 </div>
 
 <div class="folder">
 
-<strong>CASES</strong>
+<strong>ENCRYPTED FILE</strong>
 
-<div class="file" onclick="openFile('case1')">case_1998.txt</div>
-<div class="file" onclick="openFile('case2')">case_2004.txt</div>
-
-</div>
-
-<div class="folder">
-
-<strong>RITUALS</strong>
-
-<div class="file" onclick="openFile('exorcism')">exorcism.txt</div>
+<div class="file" onclick="openFile('locked')">case_blackwater.txt</div>
 
 </div>
 
 <div id="content"></div>
 
+<!-- ТЕРМИНАЛ -->
+
+<div id="terminal">
+
+<p>> hunter_terminal.exe</p>
+
+<div id="terminalLog"></div>
+
+<input id="terminalInput" placeholder="type command...">
+
+</div>
 
 <!-- музыка -->
 
-<audio id="bgMusic" loop>
-<source src="music.mp3" type="audio/mpeg">
-</audio>
+<div id="musicBox">
 
-<div id="volumeControl">
+<button onclick="startMusic()">PLAY AMBIENCE</button>
 
-<div>Volume</div>
+<br><br>
 
-<input type="range"
-min="0"
-max="1"
-step="0.01"
-value="0.3"
-oninput="setVolume(this.value)">
+Volume
+
+<br>
+
+<input type="range" min="0" max="1" step="0.01" value="0.3" oninput="music.volume=this.value">
 
 </div>
+
+<audio id="music" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 
 /* музыка */
 
-let music=document.getElementById("bgMusic")
+let music=document.getElementById("music")
 
-document.body.addEventListener("click",function(){
+function startMusic(){
 music.play()
-},{once:true})
-
-function setVolume(v){
-music.volume=v
 }
 
-/* архив */
+/* файлы */
 
 function openFile(type){
 
 let c=document.getElementById("content")
 
-if(type==="wendigo"){
-c.innerHTML=`
-<h2>WENDIGO</h2>
-<p>Habitat: deep forests</p>
-<p>Victims: hikers</p>
-<p>Weakness: FIRE</p>
-`
-}
-
 if(type==="vampire"){
 c.innerHTML=`
 <h2>VAMPIRE</h2>
-<p>Signs:</p>
-<p>- blood drained</p>
-<p>- fang wounds</p>
-<p>Weakness: silver knife</p>
+<p>Weakness: silver.</p>
+<p>Encrypted clue: YLPSLUH</p>
+<p>Hint: Caesar shift 3.</p>
 `
 }
 
-if(type==="case1"){
+if(type==="wendigo"){
 c.innerHTML=`
-<h2>CASE 1998</h2>
-<p>Missing hikers in Colorado.</p>
-<p>Clue: burned nest found.</p>
+<h2>WENDIGO</h2>
+<p>Forest predator.</p>
+<p>Weakness: fire.</p>
+<p>Clue: coordinates hidden in cases.</p>
 `
 }
 
-if(type==="case2"){
+if(type==="ghost"){
 c.innerHTML=`
-<h2>CASE 2004</h2>
-<p>Victims drained of blood.</p>
-<p>Possible vampire nest.</p>
+<h2>GHOST</h2>
+<p>Burn remains.</p>
+<p>Hidden message:</p>
+<p>
+Dark<br>
+Old<br>
+Crows<br>
+Kings
+</p>
 `
 }
 
-if(type==="exorcism"){
+if(type==="shapeshifter"){
 c.innerHTML=`
-<h2>EXORCISM RITUAL</h2>
-<p>Exorcizamus te, omnis immundus spiritus...</p>
+<h2>SHAPESHIFTER</h2>
+<p>Anagram: RIGOENDW</p>
+`
+}
+
+if(type==="demon"){
+c.innerHTML=`
+<h2>DEMON</h2>
+<p>Exorcizamus te omnis immundus spiritus...</p>
+`
+}
+
+if(type==="angel"){
+c.innerHTML=`
+<h2>ANGEL</h2>
+<p>Grace entity.</p>
+`
+}
+
+if(type==="ghoul"){
+c.innerHTML=`
+<h2>GHOUL</h2>
+<p>Feeds on corpses.</p>
+`
+}
+
+if(type==="werewolf"){
+c.innerHTML=`
+<h2>WEREWOLF</h2>
+<p>Silver bullet required.</p>
+`
+}
+
+if(type==="reaper"){
+c.innerHTML=`
+<h2>REAPER</h2>
+<p>Guide of souls.</p>
+`
+}
+
+if(type==="leviathan"){
+c.innerHTML=`
+<h2>LEVIATHAN</h2>
+<p>Ancient creatures.</p>
 `
 }
 
 if(type==="locked"){
 c.innerHTML=`
-<h2>FILE LOCKED</h2>
+
+<h2>ENCRYPTED FILE</h2>
 
 <p>Password required</p>
 
 <input id="pass">
-<button onclick="checkPass()">open</button>
+<button onclick="checkPass()">decrypt</button>
+
+<p>Hint: hunters use this against vampires.</p>
+
 `
 }
 
@@ -310,78 +307,73 @@ c.innerHTML=`
 
 function checkPass(){
 
-let pass=document.getElementById("pass").value.toLowerCase()
-
+let p=document.getElementById("pass").value.toLowerCase()
 let c=document.getElementById("content")
 
-if(pass==="silver"){
+if(p==="silver"){
 
 c.innerHTML=`
-<h2>UNKNOWN CREATURE</h2>
-<p>Signs:</p>
-<p>- mimics human appearance</p>
-<p>- leaves skin behind</p>
-<p>Research: shapeshifter</p>
+
+<h2>CASE BLACKWATER</h2>
+
+<p>Disappearances every 23 years.</p>
+
+<p>Final code: 23-3-14</p>
+
+<p>Use terminal command to decode.</p>
+
 `
 
 }else{
 
-c.innerHTML=`ACCESS DENIED`
-
-showDemon()
+c.innerHTML="<p>ACCESS DENIED</p>"
 
 }
 
 }
 
-/* демонический символ */
+/* ТЕРМИНАЛ */
 
-function showDemon(){
+let input=document.getElementById("terminalInput")
+let log=document.getElementById("terminalLog")
 
-let d=document.getElementById("demon")
+input.addEventListener("keypress",function(e){
 
-d.style.display="block"
+if(e.key==="Enter"){
 
-setTimeout(()=>{
-d.style.display="none"
-},1500)
+let cmd=input.value
+input.value=""
 
-}
+log.innerHTML+="<p>> "+cmd+"</p>"
 
-/* пыль */
-
-const dust=document.getElementById("dust")
-
-for(let i=0;i<80;i++){
-
-let p=document.createElement("div")
-
-p.classList.add("particle")
-
-p.style.left=Math.random()*100+"%"
-p.style.animationDuration=10+Math.random()*20+"s"
-p.style.opacity=Math.random()
-
-dust.appendChild(p)
+process(cmd)
 
 }
 
-/* секретные страницы */
+})
 
-const path=window.location.pathname
+function process(cmd){
 
-if(path.includes("bunker")){
-document.getElementById("content").innerHTML=`
-<h2>MEN OF LETTERS BUNKER</h2>
-<p>You found a hidden archive.</p>
-`
+if(cmd==="help"){
+log.innerHTML+="<p>commands: scan decode bunker</p>"
 }
 
-if(path.includes("ritual")){
-document.getElementById("content").innerHTML=`
-<h2>DEMON TRAP</h2>
-<p>Use salt and the symbol to trap demons.</p>
-`
+else if(cmd==="scan"){
+log.innerHTML+="<p>scanning archive... monster patterns found.</p>"
+}
+
+else if(cmd==="decode"){
+log.innerHTML+="<p>23-3-14 -> W C N</p>"
+}
+
+else if(cmd==="bunker"){
+log.innerHTML+="<p>ACCESS GRANTED: Men of Letters bunker</p>"
+}
+
+else{
+log.innerHTML+="<p>unknown command</p>"
+}
+
 }
 
 </script>
