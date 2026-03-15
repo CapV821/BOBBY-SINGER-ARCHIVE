@@ -6,16 +6,99 @@
 
 <style>
 
+/* ОСНОВА */
+
 body{
-background:black;
-color:#33ff33;
+background-image:url("background.jpg");
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+
+color:#7fdfff;
 font-family:Courier New, monospace;
 padding:30px;
+margin:0;
+overflow:hidden;
 }
 
-h1{
-color:#66ff66;
+/* затемнение */
+
+body::before{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.75);
+z-index:-3;
 }
+
+/* скан линии */
+
+body::after{
+content:"";
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:repeating-linear-gradient(
+transparent,
+transparent 2px,
+rgba(0,0,0,0.3) 3px
+);
+pointer-events:none;
+z-index:5;
+}
+
+/* мерцание */
+
+@keyframes flicker{
+0%{opacity:0.97}
+50%{opacity:1}
+100%{opacity:0.96}
+}
+
+body{
+animation:flicker 3s infinite;
+}
+
+/* ПЫЛЬ */
+
+#dust{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+pointer-events:none;
+z-index:-1;
+}
+
+.particle{
+position:absolute;
+width:3px;
+height:3px;
+background:#7fdfff;
+border-radius:50%;
+opacity:0.4;
+animation:float linear infinite;
+}
+
+@keyframes float{
+from{transform:translateY(100vh)}
+to{transform:translateY(-10vh)}
+}
+
+/* текст */
+
+h1{
+color:#9fe8ff;
+text-shadow:0 0 10px #2bdfff;
+}
+
+/* папки */
 
 .folder{
 margin-top:20px;
@@ -30,31 +113,71 @@ margin-left:20px;
 color:white;
 }
 
+/* контент */
+
 #content{
 margin-top:30px;
-border-top:1px solid #33ff33;
+border-top:1px solid #7fdfff;
 padding-top:20px;
+min-height:200px;
 }
+
+/* формы */
 
 input{
 background:black;
-border:1px solid #33ff33;
-color:#33ff33;
+border:1px solid #7fdfff;
+color:#7fdfff;
 padding:5px;
 }
 
 button{
 background:black;
-border:1px solid #33ff33;
-color:#33ff33;
+border:1px solid #7fdfff;
+color:#7fdfff;
 padding:5px;
 cursor:pointer;
+}
+
+button:hover{
+background:#7fdfff;
+color:black;
+}
+
+/* громкость */
+
+#volumeControl{
+position:fixed;
+right:20px;
+top:50%;
+transform:translateY(-50%);
+background:rgba(0,0,0,0.7);
+padding:15px;
+border:1px solid #7fdfff;
+}
+
+/* демонический символ */
+
+#demon{
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:120px;
+color:red;
+display:none;
+opacity:0.8;
+text-shadow:0 0 30px red;
+z-index:10;
 }
 
 </style>
 </head>
 
 <body>
+
+<div id="dust"></div>
+<div id="demon">⛧</div>
 
 <h1>BOBBY SINGER ARCHIVE</h1>
 <p>Recovered files from damaged hard drive...</p>
@@ -63,81 +186,202 @@ cursor:pointer;
 
 <strong>MONSTERS</strong>
 
-<div class="file" onclick="openFile('wendigo')">
-wendigo.txt
-</div>
-
-<div class="file" onclick="openFile('locked')">
-unknown_creature.txt (LOCKED)
-</div>
+<div class="file" onclick="openFile('wendigo')">wendigo.txt</div>
+<div class="file" onclick="openFile('vampire')">vampire.txt</div>
+<div class="file" onclick="openFile('locked')">unknown_creature.txt (LOCKED)</div>
 
 </div>
 
+<div class="folder">
+
+<strong>CASES</strong>
+
+<div class="file" onclick="openFile('case1')">case_1998.txt</div>
+<div class="file" onclick="openFile('case2')">case_2004.txt</div>
+
+</div>
+
+<div class="folder">
+
+<strong>RITUALS</strong>
+
+<div class="file" onclick="openFile('exorcism')">exorcism.txt</div>
+
+</div>
 
 <div id="content"></div>
 
 
+<!-- музыка -->
+
+<audio id="bgMusic" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<div id="volumeControl">
+
+<div>Volume</div>
+
+<input type="range"
+min="0"
+max="1"
+step="0.01"
+value="0.3"
+oninput="setVolume(this.value)">
+
+</div>
+
 <script>
+
+/* музыка */
+
+let music=document.getElementById("bgMusic")
+
+document.body.addEventListener("click",function(){
+music.play()
+},{once:true})
+
+function setVolume(v){
+music.volume=v
+}
+
+/* архив */
 
 function openFile(type){
 
-let content=document.getElementById("content")
+let c=document.getElementById("content")
 
 if(type==="wendigo"){
-
-content.innerHTML=`
+c.innerHTML=`
 <h2>WENDIGO</h2>
 <p>Habitat: deep forests</p>
 <p>Victims: hikers</p>
 <p>Weakness: FIRE</p>
-<p>Note: Hunger spirit. Don't hunt alone.</p>
 `
+}
 
+if(type==="vampire"){
+c.innerHTML=`
+<h2>VAMPIRE</h2>
+<p>Signs:</p>
+<p>- blood drained</p>
+<p>- fang wounds</p>
+<p>Weakness: silver knife</p>
+`
+}
+
+if(type==="case1"){
+c.innerHTML=`
+<h2>CASE 1998</h2>
+<p>Missing hikers in Colorado.</p>
+<p>Clue: burned nest found.</p>
+`
+}
+
+if(type==="case2"){
+c.innerHTML=`
+<h2>CASE 2004</h2>
+<p>Victims drained of blood.</p>
+<p>Possible vampire nest.</p>
+`
+}
+
+if(type==="exorcism"){
+c.innerHTML=`
+<h2>EXORCISM RITUAL</h2>
+<p>Exorcizamus te, omnis immundus spiritus...</p>
+`
 }
 
 if(type==="locked"){
-
-content.innerHTML=`
+c.innerHTML=`
 <h2>FILE LOCKED</h2>
 
 <p>Password required</p>
 
-<input id="pass" placeholder="enter password">
-
+<input id="pass">
 <button onclick="checkPass()">open</button>
 `
-
 }
 
 }
+
+/* пароль */
 
 function checkPass(){
 
 let pass=document.getElementById("pass").value.toLowerCase()
-let content=document.getElementById("content")
+
+let c=document.getElementById("content")
 
 if(pass==="silver"){
 
-content.innerHTML=`
+c.innerHTML=`
 <h2>UNKNOWN CREATURE</h2>
-
 <p>Signs:</p>
-<p>- victims drained of blood</p>
-<p>- puncture wounds on neck</p>
-
-<p>Weakness: ???</p>
-
-<p>Note: research vampires.</p>
+<p>- mimics human appearance</p>
+<p>- leaves skin behind</p>
+<p>Research: shapeshifter</p>
 `
 
+}else{
+
+c.innerHTML=`ACCESS DENIED`
+
+showDemon()
+
 }
 
-else{
+}
 
-content.innerHTML=`<p>ACCESS DENIED</p>`
+/* демонический символ */
+
+function showDemon(){
+
+let d=document.getElementById("demon")
+
+d.style.display="block"
+
+setTimeout(()=>{
+d.style.display="none"
+},1500)
 
 }
 
+/* пыль */
+
+const dust=document.getElementById("dust")
+
+for(let i=0;i<80;i++){
+
+let p=document.createElement("div")
+
+p.classList.add("particle")
+
+p.style.left=Math.random()*100+"%"
+p.style.animationDuration=10+Math.random()*20+"s"
+p.style.opacity=Math.random()
+
+dust.appendChild(p)
+
+}
+
+/* секретные страницы */
+
+const path=window.location.pathname
+
+if(path.includes("bunker")){
+document.getElementById("content").innerHTML=`
+<h2>MEN OF LETTERS BUNKER</h2>
+<p>You found a hidden archive.</p>
+`
+}
+
+if(path.includes("ritual")){
+document.getElementById("content").innerHTML=`
+<h2>DEMON TRAP</h2>
+<p>Use salt and the symbol to trap demons.</p>
+`
 }
 
 </script>
