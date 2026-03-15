@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bobby Singer Archive</title>
+
+<style>
+
+body{
+background:black;
+color:#33ff33;
+font-family:Courier New, monospace;
+padding:30px;
+}
+
+h1{
+color:#66ff66;
+}
+
+.folder{
+margin-top:20px;
+}
+
+.file{
+cursor:pointer;
+margin-left:20px;
+}
+
+.file:hover{
+color:white;
+}
+
+#content{
+margin-top:30px;
+border-top:1px solid #33ff33;
+padding-top:20px;
+}
+
+input{
+background:black;
+border:1px solid #33ff33;
+color:#33ff33;
+padding:5px;
+}
+
+button{
+background:black;
+border:1px solid #33ff33;
+color:#33ff33;
+padding:5px;
+cursor:pointer;
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>BOBBY SINGER ARCHIVE</h1>
+<p>Recovered files from damaged hard drive...</p>
+
+<div class="folder">
+
+<strong>MONSTERS</strong>
+
+<div class="file" onclick="openFile('wendigo')">
+wendigo.txt
+</div>
+
+<div class="file" onclick="openFile('locked')">
+unknown_creature.txt (LOCKED)
+</div>
+
+</div>
+
+
+<div id="content"></div>
+
+
+<script>
+
+function openFile(type){
+
+let content=document.getElementById("content")
+
+if(type==="wendigo"){
+
+content.innerHTML=`
+<h2>WENDIGO</h2>
+<p>Habitat: deep forests</p>
+<p>Victims: hikers</p>
+<p>Weakness: FIRE</p>
+<p>Note: Hunger spirit. Don't hunt alone.</p>
+`
+
+}
+
+if(type==="locked"){
+
+content.innerHTML=`
+<h2>FILE LOCKED</h2>
+
+<p>Password required</p>
+
+<input id="pass" placeholder="enter password">
+
+<button onclick="checkPass()">open</button>
+`
+
+}
+
+}
+
+function checkPass(){
+
+let pass=document.getElementById("pass").value.toLowerCase()
+let content=document.getElementById("content")
+
+if(pass==="silver"){
+
+content.innerHTML=`
+<h2>UNKNOWN CREATURE</h2>
+
+<p>Signs:</p>
+<p>- victims drained of blood</p>
+<p>- puncture wounds on neck</p>
+
+<p>Weakness: ???</p>
+
+<p>Note: research vampires.</p>
+`
+
+}
+
+else{
+
+content.innerHTML=`<p>ACCESS DENIED</p>`
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
