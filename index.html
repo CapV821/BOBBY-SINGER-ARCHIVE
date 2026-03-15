@@ -7,15 +7,14 @@
 <style>
 
 body{
-background:url("background.jpeg") no-repeat center center fixed;
-background-size:cover;
+background:url("background.jpeg") center/cover no-repeat fixed;
 color:#8fe9ff;
 font-family:Courier New, monospace;
 margin:0;
 padding:40px;
 }
 
-/* затемнение */
+/* затемнение без перекрытия картинки */
 
 body::before{
 content:"";
@@ -24,7 +23,7 @@ top:0;
 left:0;
 width:100%;
 height:100%;
-background:rgba(0,0,0,0.8);
+background:rgba(0,0,0,0.55);
 z-index:-1;
 }
 
@@ -40,16 +39,14 @@ height:100%;
 background:repeating-linear-gradient(
 transparent,
 transparent 2px,
-rgba(0,0,0,0.35) 3px
+rgba(0,0,0,0.3) 3px
 );
 pointer-events:none;
 }
 
-/* текст */
-
 h1{
 color:#b8f2ff;
-text-shadow:0 0 10px #3bdfff;
+text-shadow:0 0 12px #3bdfff;
 }
 
 .folder{
@@ -64,8 +61,6 @@ cursor:pointer;
 .file:hover{
 color:white;
 }
-
-/* окно контента */
 
 #content{
 margin-top:30px;
@@ -88,38 +83,54 @@ width:100%;
 background:black;
 border:none;
 color:#8fe9ff;
-font-family:Courier New;
 outline:none;
+font-family:Courier New;
 }
 
-/* музыка */
+/* панель кнопок */
 
-#musicBox{
+#controlPanel{
 position:fixed;
 right:20px;
 top:30px;
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.panelButton{
+background:black;
+border:1px solid #8fe9ff;
+color:#8fe9ff;
+padding:8px;
+cursor:pointer;
+}
+
+.panelButton:hover{
+background:#8fe9ff;
+color:black;
+}
+
+/* аудио панель */
+
+#audioPanel{
+display:none;
 background:black;
 border:1px solid #8fe9ff;
 padding:10px;
 }
 
-button{
+/* подсказки */
+
+#hintBox{
+display:none;
+position:fixed;
+bottom:30px;
+right:30px;
 background:black;
 border:1px solid #8fe9ff;
-color:#8fe9ff;
-padding:6px 10px;
-cursor:pointer;
-}
-
-button:hover{
-background:#8fe9ff;
-color:black;
-}
-
-input{
-background:black;
-border:1px solid #8fe9ff;
-color:#8fe9ff;
+padding:15px;
+max-width:260px;
 }
 
 </style>
@@ -128,7 +139,7 @@ color:#8fe9ff;
 <body>
 
 <h1>BOBBY SINGER ARCHIVE</h1>
-<p>Hunter database restored. Some files corrupted.</p>
+<p>Recovered hunter database. Multiple files encrypted.</p>
 
 <div class="folder">
 
@@ -139,17 +150,17 @@ color:#8fe9ff;
 <div class="file" onclick="openFile('ghost')">ghost.txt</div>
 <div class="file" onclick="openFile('shapeshifter')">shapeshifter.txt</div>
 <div class="file" onclick="openFile('demon')">demon.txt</div>
-<div class="file" onclick="openFile('angel')">angel.txt</div>
-<div class="file" onclick="openFile('ghoul')">ghoul.txt</div>
 <div class="file" onclick="openFile('werewolf')">werewolf.txt</div>
+<div class="file" onclick="openFile('ghoul')">ghoul.txt</div>
 <div class="file" onclick="openFile('reaper')">reaper.txt</div>
+<div class="file" onclick="openFile('angel')">angel.txt</div>
 <div class="file" onclick="openFile('leviathan')">leviathan.txt</div>
 
 </div>
 
 <div class="folder">
 
-<strong>ENCRYPTED FILE</strong>
+<strong>ENCRYPTED CASE</strong>
 
 <div class="file" onclick="openFile('locked')">case_blackwater.txt</div>
 
@@ -157,7 +168,7 @@ color:#8fe9ff;
 
 <div id="content"></div>
 
-<!-- ТЕРМИНАЛ -->
+<!-- терминал -->
 
 <div id="terminal">
 
@@ -169,11 +180,16 @@ color:#8fe9ff;
 
 </div>
 
-<!-- музыка -->
+<!-- панель управления -->
 
-<div id="musicBox">
+<div id="controlPanel">
 
-<button onclick="startMusic()">PLAY AMBIENCE</button>
+<button class="panelButton" onclick="toggleAudio()">🔊 Audio</button>
+<button class="panelButton" onclick="showHint()">💡 Hint</button>
+
+<div id="audioPanel">
+
+<button onclick="music.play()">Play</button>
 
 <br><br>
 
@@ -181,9 +197,14 @@ Volume
 
 <br>
 
-<input type="range" min="0" max="1" step="0.01" value="0.3" oninput="music.volume=this.value">
+<input type="range" min="0" max="1" step="0.01" value="0.3"
+oninput="music.volume=this.value">
 
 </div>
+
+</div>
+
+<div id="hintBox"></div>
 
 <audio id="music" loop>
 <source src="music.mp3" type="audio/mpeg">
@@ -191,15 +212,18 @@ Volume
 
 <script>
 
-/* музыка */
-
 let music=document.getElementById("music")
 
-function startMusic(){
-music.play()
+function toggleAudio(){
+
+let panel=document.getElementById("audioPanel")
+
+panel.style.display=
+panel.style.display==="block"?"none":"block"
+
 }
 
-/* файлы */
+/* ФАЙЛЫ */
 
 function openFile(type){
 
@@ -208,26 +232,50 @@ let c=document.getElementById("content")
 if(type==="vampire"){
 c.innerHTML=`
 <h2>VAMPIRE</h2>
-<p>Weakness: silver.</p>
-<p>Encrypted clue: YLPSLUH</p>
-<p>Hint: Caesar shift 3.</p>
+
+<p>Ancient predators feeding on human blood. 
+Often form nests and hunt in coordinated packs.</p>
+
+<p>Known signs:</p>
+<p>- drained victims</p>
+<p>- fang punctures</p>
+<p>- missing persons near abandoned buildings</p>
+
+<p>Weakness: silver blade.</p>
+
+<p>Encrypted note:</p>
+<p>YLPSLUH</p>
+
+<p>Hint inside archive.</p>
 `
 }
 
 if(type==="wendigo"){
 c.innerHTML=`
 <h2>WENDIGO</h2>
-<p>Forest predator.</p>
+
+<p>Spirit of endless hunger originating in northern forests.</p>
+
+<p>Hunting pattern: stalk prey for days before attack.</p>
+
 <p>Weakness: fire.</p>
-<p>Clue: coordinates hidden in cases.</p>
+
+<p>Note: creatures move extremely fast in trees.</p>
 `
 }
 
 if(type==="ghost"){
 c.innerHTML=`
 <h2>GHOST</h2>
-<p>Burn remains.</p>
+
+<p>Human spirit trapped between worlds.</p>
+
+<p>Usually tied to unfinished business or remains.</p>
+
+<p>Method: burn bones.</p>
+
 <p>Hidden message:</p>
+
 <p>
 Dark<br>
 Old<br>
@@ -240,53 +288,53 @@ Kings
 if(type==="shapeshifter"){
 c.innerHTML=`
 <h2>SHAPESHIFTER</h2>
-<p>Anagram: RIGOENDW</p>
+
+<p>Creature able to mimic humans perfectly.</p>
+
+<p>Evidence: discarded skin.</p>
+
+<p>Anagram:</p>
+
+<p>RIGOENDW</p>
 `
 }
 
 if(type==="demon"){
 c.innerHTML=`
 <h2>DEMON</h2>
+
+<p>Possessing entity from Hell.</p>
+
+<p>Weakness: devil's trap and exorcism.</p>
+
+<p>Latin ritual fragment recorded:</p>
+
 <p>Exorcizamus te omnis immundus spiritus...</p>
 `
 }
 
-if(type==="angel"){
-c.innerHTML=`
-<h2>ANGEL</h2>
-<p>Grace entity.</p>
-`
+if(type==="werewolf"){
+c.innerHTML=`<h2>WEREWOLF</h2><p>Transformed predator. Silver bullet required.</p>`
 }
 
 if(type==="ghoul"){
-c.innerHTML=`
-<h2>GHOUL</h2>
-<p>Feeds on corpses.</p>
-`
-}
-
-if(type==="werewolf"){
-c.innerHTML=`
-<h2>WEREWOLF</h2>
-<p>Silver bullet required.</p>
-`
+c.innerHTML=`<h2>GHOUL</h2><p>Corpse eater capable of impersonation.</p>`
 }
 
 if(type==="reaper"){
-c.innerHTML=`
-<h2>REAPER</h2>
-<p>Guide of souls.</p>
-`
+c.innerHTML=`<h2>REAPER</h2><p>Guide of souls to afterlife.</p>`
+}
+
+if(type==="angel"){
+c.innerHTML=`<h2>ANGEL</h2><p>Celestial being powered by grace.</p>`
 }
 
 if(type==="leviathan"){
-c.innerHTML=`
-<h2>LEVIATHAN</h2>
-<p>Ancient creatures.</p>
-`
+c.innerHTML=`<h2>LEVIATHAN</h2><p>Ancient creatures predating angels.</p>`
 }
 
 if(type==="locked"){
+
 c.innerHTML=`
 
 <h2>ENCRYPTED FILE</h2>
@@ -294,11 +342,10 @@ c.innerHTML=`
 <p>Password required</p>
 
 <input id="pass">
-<button onclick="checkPass()">decrypt</button>
-
-<p>Hint: hunters use this against vampires.</p>
+<button onclick="checkPass()">Decrypt</button>
 
 `
+
 }
 
 }
@@ -320,7 +367,7 @@ c.innerHTML=`
 
 <p>Final code: 23-3-14</p>
 
-<p>Use terminal command to decode.</p>
+<p>Use terminal decode.</p>
 
 `
 
@@ -332,7 +379,7 @@ c.innerHTML="<p>ACCESS DENIED</p>"
 
 }
 
-/* ТЕРМИНАЛ */
+/* терминал */
 
 let input=document.getElementById("terminalInput")
 let log=document.getElementById("terminalLog")
@@ -346,33 +393,46 @@ input.value=""
 
 log.innerHTML+="<p>> "+cmd+"</p>"
 
-process(cmd)
+if(cmd==="help")
+log.innerHTML+="<p>scan decode bunker</p>"
+
+else if(cmd==="decode")
+log.innerHTML+="<p>23-3-14 → W C N</p>"
+
+else if(cmd==="bunker")
+log.innerHTML+="<p>Men of Letters bunker unlocked</p>"
+
+else
+log.innerHTML+="<p>unknown command</p>"
 
 }
 
 })
 
-function process(cmd){
+/* подсказки */
 
-if(cmd==="help"){
-log.innerHTML+="<p>commands: scan decode bunker</p>"
-}
+let hints=[
+"Caesar cipher may reveal monster name.",
+"Anagrams hide inside shapeshifter files.",
+"Ghost file hides message in first letters.",
+"Silver is always useful against vampires.",
+"Terminal command 'decode' may help."
+]
 
-else if(cmd==="scan"){
-log.innerHTML+="<p>scanning archive... monster patterns found.</p>"
-}
+let hintIndex=0
 
-else if(cmd==="decode"){
-log.innerHTML+="<p>23-3-14 -> W C N</p>"
-}
+function showHint(){
 
-else if(cmd==="bunker"){
-log.innerHTML+="<p>ACCESS GRANTED: Men of Letters bunker</p>"
-}
+let box=document.getElementById("hintBox")
 
-else{
-log.innerHTML+="<p>unknown command</p>"
-}
+box.style.display="block"
+
+box.innerHTML=hints[hintIndex]
+
+hintIndex++
+
+if(hintIndex>=hints.length)
+hintIndex=hints.length-1
 
 }
 
