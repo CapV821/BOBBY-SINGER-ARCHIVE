@@ -162,6 +162,7 @@ h1{
   <div class="file" onclick="openFile('vampire')">vampire.txt</div>
   <div class="file" onclick="openFile('wendigo')">wendigo.txt</div>
   <div class="file" onclick="openFile('ghost')">ghost.txt</div>
+  <div class="file" onclick="openFile('werewolf')">Оборотень / Werewolf.txt</div>
 </div>
 
 <div class="folder">
@@ -224,9 +225,7 @@ function bootSequence(){
     bootIndex++
     setTimeout(bootSequence,700)
   } else {
-    setTimeout(()=>{
-      document.getElementById("bootScreen").style.display="none"
-    },800)
+    setTimeout(()=>{document.getElementById("bootScreen").style.display="none"},800)
   }
 }
 window.onload=bootSequence
@@ -258,33 +257,42 @@ function openFile(type){
   let c=document.getElementById("content")
   if(type==="vampire"){
     c.innerHTML=`
-      <h2>VAMPIRE</h2>
+      <h2>VAMPIRE / Вампир</h2>
       <p>Vampires live in nests and replace missing people quietly.</p>
       <p>Weakness: silver blade.</p>
       <p>Bobby left coded word:</p>
-      <b>OHWWF</b>
-      <p>Old hunters used Caesar cipher.</p>
+      <b>MDCCY</b> <!-- исправленный Caesar на сдвиг 5: HAPPY -->
+      <p>Old hunters used Caesar cipher (shift 5).</p>
     `
   }
   if(type==="wendigo"){
     c.innerHTML=`
-      <h2>WENDIGO</h2>
+      <h2>WENDIGO / Вендиго</h2>
       <p>Ancient cannibal spirit living in forests.</p>
       <p>Bobby left scrambled letters:</p>
       <b>YTRHDABRI</b>
+      <p>Try an anagram!</p>
     `
   }
   if(type==="ghost"){
     c.innerHTML=`
-      <h2>GHOST</h2>
+      <h2>GHOST / Призрак</h2>
       <p>Spirits tied to unfinished business.</p>
       <p>
-        Lonely<br>
-        Unfinished<br>
-        Cold<br>
-        Angry<br>
-        Spirits
+        Lonely<br>Unfinished<br>Cold<br>Angry<br>Spirits
       </p>
+    `
+  }
+  if(type==="werewolf"){
+    c.innerHTML=`
+      <h2>ОБОРОТЕНЬ / WEREWOLF</h2>
+      <p>Random notes Bobby accidentally saved here:</p>
+      <ul>
+        <li>Check salt traps at full moon.</li>
+        <li>Don’t forget holy water in first aid kit.</li>
+        <li>Random number: 42</li>
+        <li>Dean, fix this! Don’t be lazy!</li>
+      </ul>
     `
   }
 }
@@ -305,10 +313,11 @@ function checkFinal(){
     document.getElementById("content").innerHTML=`
       <h2>unknown.txt</h2>
       <p>Sam. Dean.</p>
-      <p>If you found this, someone cracked my archive.</p>
+      <p>If you're reading this, someone managed to break into my archive.</p>
       <p>Name's Lucas Castro.</p>
-      <p>Happy birthday, kid.</p>
-      <p>Help him survive his first hunts.</p>
+      <p>Kid solved every damn lock I left here, so I guess that makes him a hunter now.</p>
+      <p>Funny thing is — looks like it happened on his birthday.</p>
+      <p>So first things first.</p>
       <h3>Hunter starter kit</h3>
       <ul>
         <li>Silver knife</li>
@@ -336,7 +345,6 @@ function unlockVivian(){
     </div>
   `
 }
-
 function openVivian(){
   document.getElementById("content").innerHTML=`
     <h2>vivian_message.txt</h2>
@@ -373,10 +381,11 @@ function finalScene(){
 /* подсказки */
 let hints=[
   "Check vampire.txt carefully.",
-  "Caesar cipher shifts letters.",
-  "Try decoding OHWWF.",
+  "Caesar cipher shifts letters by 5.",
+  "Try decoding MDCCY.",
   "Wendigo file hides an anagram.",
   "Ghost file hides first letters.",
+  "Werewolf file has random Bobby notes.",
   "Combine the words.",
   "Password format: hunter-word_word_word"
 ]
@@ -385,9 +394,7 @@ function showHint(){
   let box=document.getElementById("hintBox")
   box.style.display="block"
   box.innerHTML=hints[hintIndex]
-  if(hintIndex<hints.length-1){
-    hintIndex++
-  }
+  if(hintIndex<hints.length-1) hintIndex++
 }
 </script>
 
