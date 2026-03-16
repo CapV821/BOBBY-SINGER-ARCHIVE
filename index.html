@@ -5,437 +5,390 @@
 <title>Bobby Singer Archive</title>
 
 <style>
-
 body{
-background:url("background.jpeg") center/cover no-repeat fixed;
-color:#8fe9ff;
-font-family:Courier New, monospace;
-margin:0;
-padding:40px;
+  background-image:url("background.jpeg");
+  background-size:cover;
+  background-position:center;
+  background-attachment:fixed;
+  color:#8fe9ff;
+  font-family:Courier New, monospace;
+  margin:0;
+  padding:40px;
 }
-
-/* затемнение без перекрытия картинки */
-
 body::before{
-content:"";
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.55);
-z-index:-1;
+  content:"";
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.65);
+  z-index:-1;
 }
-
-/* скан линии */
-
-body::after{
-content:"";
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:repeating-linear-gradient(
-transparent,
-transparent 2px,
-rgba(0,0,0,0.3) 3px
-);
-pointer-events:none;
-}
-
 h1{
-color:#b8f2ff;
-text-shadow:0 0 12px #3bdfff;
+  text-shadow:0 0 12px #33e0ff;
 }
-
 .folder{
-margin-top:25px;
+  margin-top:25px;
 }
-
 .file{
-margin-left:20px;
-cursor:pointer;
+  margin-left:20px;
+  cursor:pointer;
+  margin-top:6px;
 }
-
 .file:hover{
-color:white;
+  color:white;
 }
-
 #content{
-margin-top:30px;
-border-top:1px solid #8fe9ff;
-padding-top:20px;
-min-height:260px;
+  margin-top:30px;
+  border-top:1px solid #8fe9ff;
+  padding-top:20px;
+  min-height:260px;
 }
-
-/* терминал */
-
-#terminal{
-margin-top:40px;
-border:1px solid #8fe9ff;
-padding:15px;
-background:black;
-}
-
-#terminalInput{
-width:100%;
-background:black;
-border:none;
-color:#8fe9ff;
-outline:none;
-font-family:Courier New;
-}
-
-/* панель кнопок */
-
+/* панель */
 #controlPanel{
-position:fixed;
-right:20px;
-top:30px;
-display:flex;
-flex-direction:column;
-gap:10px;
+  position:fixed;
+  right:20px;
+  top:30px;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
 }
-
 .panelButton{
-background:black;
-border:1px solid #8fe9ff;
-color:#8fe9ff;
-padding:8px;
-cursor:pointer;
+  background:black;
+  border:1px solid #8fe9ff;
+  color:#8fe9ff;
+  padding:8px;
+  cursor:pointer;
 }
-
 .panelButton:hover{
-background:#8fe9ff;
-color:black;
+  background:#8fe9ff;
+  color:black;
 }
-
-/* аудио панель */
-
 #audioPanel{
-display:none;
-background:black;
-border:1px solid #8fe9ff;
-padding:10px;
+  display:none;
+  background:black;
+  border:1px solid #8fe9ff;
+  padding:10px;
 }
-
-/* подсказки */
-
 #hintBox{
-display:none;
-position:fixed;
-bottom:30px;
-right:30px;
-background:black;
-border:1px solid #8fe9ff;
-padding:15px;
-max-width:260px;
+  display:none;
+  position:fixed;
+  bottom:30px;
+  right:30px;
+  background:black;
+  border:1px solid #8fe9ff;
+  padding:15px;
+  max-width:280px;
 }
-
+/* загрузка */
+#bootScreen{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:black;
+  color:#8fe9ff;
+  font-family:Courier New, monospace;
+  padding:40px;
+  z-index:200;
+}
+#bootText{
+  white-space:pre-line;
+  margin-bottom:20px;
+}
+#bootBarContainer{
+  width:100%;
+  height:10px;
+  border:1px solid #8fe9ff;
+}
+#bootBar{
+  width:0%;
+  height:100%;
+  background:#8fe9ff;
+}
+/* финальная сцена */
+#finalScene{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:black;
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  z-index:100;
+  text-align:center;
+  color:white;
+  overflow:hidden;
+}
+#finalScene h1{
+  font-size:60px;
+  text-shadow:0 0 20px #00e5ff;
+}
+#finalScene p{
+  font-size:22px;
+}
+.star{
+  position:absolute;
+  width:2px;
+  height:2px;
+  background:white;
+  animation:twinkle 2s infinite alternate;
+}
+@keyframes twinkle{
+  0%{opacity:0.2}
+  100%{opacity:1}
+}
 </style>
 </head>
-
 <body>
 
+<div id="bootScreen">
+  <div id="bootText"></div>
+  <div id="bootBarContainer">
+    <div id="bootBar"></div>
+  </div>
+</div>
+
 <h1>BOBBY SINGER ARCHIVE</h1>
-<p>Recovered hunter database. Multiple files encrypted.</p>
+<p id="subtitle">Recovered hunter research database.</p>
 
 <div class="folder">
-
-<strong>MONSTERS</strong>
-
-<div class="file" onclick="openFile('vampire')">vampire.txt</div>
-<div class="file" onclick="openFile('wendigo')">wendigo.txt</div>
-<div class="file" onclick="openFile('ghost')">ghost.txt</div>
-<div class="file" onclick="openFile('shapeshifter')">shapeshifter.txt</div>
-<div class="file" onclick="openFile('demon')">demon.txt</div>
-<div class="file" onclick="openFile('werewolf')">werewolf.txt</div>
-<div class="file" onclick="openFile('ghoul')">ghoul.txt</div>
-<div class="file" onclick="openFile('reaper')">reaper.txt</div>
-<div class="file" onclick="openFile('angel')">angel.txt</div>
-<div class="file" onclick="openFile('leviathan')">leviathan.txt</div>
-
+  <strong id="monsterFolder">MONSTER FILES</strong>
+  <div class="file" onclick="openFile('vampire')">vampire.txt</div>
+  <div class="file" onclick="openFile('wendigo')">wendigo.txt</div>
+  <div class="file" onclick="openFile('ghost')">ghost.txt</div>
 </div>
 
 <div class="folder">
-
-<strong>ENCRYPTED CASE</strong>
-
-<div class="file" onclick="openFile('locked')">case_blackwater.txt</div>
-
+  <strong id="lockedFolder">LOCKED FILE</strong>
+  <div class="file" onclick="openFinal()">unknown.txt</div>
 </div>
+
+<div id="secretFolder"></div>
 
 <div id="content"></div>
 
-<!-- терминал -->
-
-<div id="terminal">
-
-<p>> hunter_terminal.exe</p>
-
-<div id="terminalLog"></div>
-
-<input id="terminalInput" placeholder="type command...">
-
-</div>
-
-<!-- панель управления -->
-
 <div id="controlPanel">
+  <button class="panelButton" onclick="toggleAudio()">🔊</button>
+  <button class="panelButton" onclick="showHint()">💡</button>
+  <button class="panelButton" onclick="toggleLang()">🌐</button>
 
-<button class="panelButton" onclick="toggleAudio()">🔊 Audio</button>
-<button class="panelButton" onclick="showHint()">💡 Hint</button>
-
-<div id="audioPanel">
-
-<button onclick="music.play()">Play</button>
-
-<br><br>
-
-Volume
-
-<br>
-
-<input type="range" min="0" max="1" step="0.01" value="0.3"
-oninput="music.volume=this.value">
-
-</div>
-
+  <div id="audioPanel">
+    <button onclick="music.play()">Play</button>
+    <br><br>
+    Volume
+    <br>
+    <input type="range" min="0" max="1" step="0.01" value="0.3" oninput="music.volume=this.value">
+  </div>
 </div>
 
 <div id="hintBox"></div>
 
 <audio id="music" loop>
-<source src="music.mp3" type="audio/mpeg">
+  <source src="music.mp3">
 </audio>
 
+<audio id="engine">
+  <source src="engine.mp3">
+</audio>
+
+<div id="finalScene">
+  <h1>Happy Birthday Lucas</h1>
+  <p>See you on the road, hunter.</p>
+</div>
+
 <script>
+/* загрузка */
+let bootLines=[
+  "BOOTING HUNTER TERMINAL...",
+  "Loading Bobby Singer Archive...",
+  "Checking salt rounds...",
+  "Checking silver weapons...",
+  "Scanning monster database...",
+  "Accessing Men of Letters backup...",
+  "Decrypting hunter files...",
+  "Archive ready."
+]
+let bootIndex=0
+function bootSequence(){
+  let text=document.getElementById("bootText")
+  let bar=document.getElementById("bootBar")
+  if(bootIndex<bootLines.length){
+    text.innerHTML+=bootLines[bootIndex]+"\n"
+    bar.style.width=((bootIndex+1)/bootLines.length*100)+"%"
+    bootIndex++
+    setTimeout(bootSequence,700)
+  } else {
+    setTimeout(()=>{
+      document.getElementById("bootScreen").style.display="none"
+    },800)
+  }
+}
+window.onload=bootSequence
 
+/* музыка */
 let music=document.getElementById("music")
-
 function toggleAudio(){
-
-let panel=document.getElementById("audioPanel")
-
-panel.style.display=
-panel.style.display==="block"?"none":"block"
-
+  let panel=document.getElementById("audioPanel")
+  panel.style.display = panel.style.display==="block" ? "none" : "block"
 }
 
-/* ФАЙЛЫ */
+/* язык */
+let lang="en"
+function toggleLang(){
+  lang=(lang==="en")?"ru":"en"
+  if(lang==="ru"){
+    document.getElementById("subtitle").innerText="Архив охотника Бобби Сингера."
+    document.getElementById("monsterFolder").innerText="ФАЙЛЫ МОНСТРОВ"
+    document.getElementById("lockedFolder").innerText="ЗАШИФРОВАННЫЙ ФАЙЛ"
+  } else {
+    document.getElementById("subtitle").innerText="Recovered hunter research database."
+    document.getElementById("monsterFolder").innerText="MONSTER FILES"
+    document.getElementById("lockedFolder").innerText="LOCKED FILE"
+  }
+}
 
+/* файлы */
 function openFile(type){
-
-let c=document.getElementById("content")
-
-if(type==="vampire"){
-c.innerHTML=`
-<h2>VAMPIRE</h2>
-
-<p>Ancient predators feeding on human blood. 
-Often form nests and hunt in coordinated packs.</p>
-
-<p>Known signs:</p>
-<p>- drained victims</p>
-<p>- fang punctures</p>
-<p>- missing persons near abandoned buildings</p>
-
-<p>Weakness: silver blade.</p>
-
-<p>Encrypted note:</p>
-<p>YLPSLUH</p>
-
-<p>Hint inside archive.</p>
-`
+  let c=document.getElementById("content")
+  if(type==="vampire"){
+    c.innerHTML=`
+      <h2>VAMPIRE</h2>
+      <p>Vampires live in nests and replace missing people quietly.</p>
+      <p>Weakness: silver blade.</p>
+      <p>Bobby left coded word:</p>
+      <b>OHWWF</b>
+      <p>Old hunters used Caesar cipher.</p>
+    `
+  }
+  if(type==="wendigo"){
+    c.innerHTML=`
+      <h2>WENDIGO</h2>
+      <p>Ancient cannibal spirit living in forests.</p>
+      <p>Bobby left scrambled letters:</p>
+      <b>YTRHDABRI</b>
+    `
+  }
+  if(type==="ghost"){
+    c.innerHTML=`
+      <h2>GHOST</h2>
+      <p>Spirits tied to unfinished business.</p>
+      <p>
+        Lonely<br>
+        Unfinished<br>
+        Cold<br>
+        Angry<br>
+        Spirits
+      </p>
+    `
+  }
 }
 
-if(type==="wendigo"){
-c.innerHTML=`
-<h2>WENDIGO</h2>
-
-<p>Spirit of endless hunger originating in northern forests.</p>
-
-<p>Hunting pattern: stalk prey for days before attack.</p>
-
-<p>Weakness: fire.</p>
-
-<p>Note: creatures move extremely fast in trees.</p>
-`
+/* финальный файл */
+function openFinal(){
+  document.getElementById("content").innerHTML=`
+    <h2>unknown.txt</h2>
+    <p>Enter password:</p>
+    <p><i>hunter-word_word_word</i></p>
+    <input id="finalPass">
+    <button onclick="checkFinal()">Decrypt</button>
+  `
+}
+function checkFinal(){
+  let pass=document.getElementById("finalPass").value.toLowerCase()
+  if(pass==="hunter-happy_birthday_lucas"){
+    document.getElementById("content").innerHTML=`
+      <h2>unknown.txt</h2>
+      <p>Sam. Dean.</p>
+      <p>If you found this, someone cracked my archive.</p>
+      <p>Name's Lucas Castro.</p>
+      <p>Happy birthday, kid.</p>
+      <p>Help him survive his first hunts.</p>
+      <h3>Hunter starter kit</h3>
+      <ul>
+        <li>Silver knife</li>
+        <li>Salt shells</li>
+        <li>EMF reader</li>
+        <li>Holy water</li>
+        <li>Devil's trap chalk</li>
+        <li>Fake FBI badge</li>
+      </ul>
+      <p><b>Bobby's note:</b></p>
+      <p>Dean — buy the kid pizza.</p>
+      <button onclick="unlockVivian()">Open next file</button>
+    `
+  } else {
+    alert("Access denied")
+  }
 }
 
-if(type==="ghost"){
-c.innerHTML=`
-<h2>GHOST</h2>
-
-<p>Human spirit trapped between worlds.</p>
-
-<p>Usually tied to unfinished business or remains.</p>
-
-<p>Method: burn bones.</p>
-
-<p>Hidden message:</p>
-
-<p>
-Dark<br>
-Old<br>
-Crows<br>
-Kings
-</p>
-`
+/* файл Вивиана */
+function unlockVivian(){
+  document.getElementById("secretFolder").innerHTML=`
+    <div class="folder">
+      <strong>PRIVATE MESSAGE</strong>
+      <div class="file" onclick="openVivian()">vivian_message.txt</div>
+    </div>
+  `
 }
 
-if(type==="shapeshifter"){
-c.innerHTML=`
-<h2>SHAPESHIFTER</h2>
-
-<p>Creature able to mimic humans perfectly.</p>
-
-<p>Evidence: discarded skin.</p>
-
-<p>Anagram:</p>
-
-<p>RIGOENDW</p>
-`
+function openVivian(){
+  document.getElementById("content").innerHTML=`
+    <h2>vivian_message.txt</h2>
+    <p>Lucas.</p>
+    <p>You solved Bobby's archive. I knew you would.</p>
+    <p>Congratulations on becoming a hunter.</p>
+    <p>And happy birthday.</p>
+    <p>When the party ends, I want to take you somewhere.</p>
+    <p>A quiet highway outside the city.</p>
+    <p>We'll take the Impala, roll down the windows and drive
+    under a sky full of stars.</p>
+    <p>No monsters. No hunting. Just the road and you.</p>
+    <p>Call me.</p>
+    <p><b>📞 +1-913-555-1972</b></p>
+    <p>— Vivian ♥</p>
+    <button onclick="finalScene()">Finish</button>
+  `
 }
 
-if(type==="demon"){
-c.innerHTML=`
-<h2>DEMON</h2>
-
-<p>Possessing entity from Hell.</p>
-
-<p>Weakness: devil's trap and exorcism.</p>
-
-<p>Latin ritual fragment recorded:</p>
-
-<p>Exorcizamus te omnis immundus spiritus...</p>
-`
+/* финал */
+function finalScene(){
+  let scene=document.getElementById("finalScene")
+  scene.style.display="flex"
+  document.getElementById("engine").play()
+  for(let i=0;i<120;i++){
+    let star=document.createElement("div")
+    star.className="star"
+    star.style.left=Math.random()*100+"%"
+    star.style.top=Math.random()*100+"%"
+    scene.appendChild(star)
+  }
 }
-
-if(type==="werewolf"){
-c.innerHTML=`<h2>WEREWOLF</h2><p>Transformed predator. Silver bullet required.</p>`
-}
-
-if(type==="ghoul"){
-c.innerHTML=`<h2>GHOUL</h2><p>Corpse eater capable of impersonation.</p>`
-}
-
-if(type==="reaper"){
-c.innerHTML=`<h2>REAPER</h2><p>Guide of souls to afterlife.</p>`
-}
-
-if(type==="angel"){
-c.innerHTML=`<h2>ANGEL</h2><p>Celestial being powered by grace.</p>`
-}
-
-if(type==="leviathan"){
-c.innerHTML=`<h2>LEVIATHAN</h2><p>Ancient creatures predating angels.</p>`
-}
-
-if(type==="locked"){
-
-c.innerHTML=`
-
-<h2>ENCRYPTED FILE</h2>
-
-<p>Password required</p>
-
-<input id="pass">
-<button onclick="checkPass()">Decrypt</button>
-
-`
-
-}
-
-}
-
-/* пароль */
-
-function checkPass(){
-
-let p=document.getElementById("pass").value.toLowerCase()
-let c=document.getElementById("content")
-
-if(p==="silver"){
-
-c.innerHTML=`
-
-<h2>CASE BLACKWATER</h2>
-
-<p>Disappearances every 23 years.</p>
-
-<p>Final code: 23-3-14</p>
-
-<p>Use terminal decode.</p>
-
-`
-
-}else{
-
-c.innerHTML="<p>ACCESS DENIED</p>"
-
-}
-
-}
-
-/* терминал */
-
-let input=document.getElementById("terminalInput")
-let log=document.getElementById("terminalLog")
-
-input.addEventListener("keypress",function(e){
-
-if(e.key==="Enter"){
-
-let cmd=input.value
-input.value=""
-
-log.innerHTML+="<p>> "+cmd+"</p>"
-
-if(cmd==="help")
-log.innerHTML+="<p>scan decode bunker</p>"
-
-else if(cmd==="decode")
-log.innerHTML+="<p>23-3-14 → W C N</p>"
-
-else if(cmd==="bunker")
-log.innerHTML+="<p>Men of Letters bunker unlocked</p>"
-
-else
-log.innerHTML+="<p>unknown command</p>"
-
-}
-
-})
 
 /* подсказки */
-
 let hints=[
-"Caesar cipher may reveal monster name.",
-"Anagrams hide inside shapeshifter files.",
-"Ghost file hides message in first letters.",
-"Silver is always useful against vampires.",
-"Terminal command 'decode' may help."
+  "Check vampire.txt carefully.",
+  "Caesar cipher shifts letters.",
+  "Try decoding OHWWF.",
+  "Wendigo file hides an anagram.",
+  "Ghost file hides first letters.",
+  "Combine the words.",
+  "Password format: hunter-word_word_word"
 ]
-
 let hintIndex=0
-
 function showHint(){
-
-let box=document.getElementById("hintBox")
-
-box.style.display="block"
-
-box.innerHTML=hints[hintIndex]
-
-hintIndex++
-
-if(hintIndex>=hints.length)
-hintIndex=hints.length-1
-
+  let box=document.getElementById("hintBox")
+  box.style.display="block"
+  box.innerHTML=hints[hintIndex]
+  if(hintIndex<hints.length-1){
+    hintIndex++
+  }
 }
-
 </script>
 
 </body>
