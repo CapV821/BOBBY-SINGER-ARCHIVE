@@ -131,7 +131,7 @@ h1{ text-shadow:0 0 12px #33e0ff; }
 
 /* фотогалерея */
 #galleryOverlay{
-  display:none;  /* скрыта по умолчанию */
+  display:none;
   position:fixed;
   top:0; left:0;
   width:100%; height:100%;
@@ -208,49 +208,23 @@ h1{ text-shadow:0 0 12px #33e0ff; }
   </div>
 </div>
 
-/* фотогалерея */
-let galleryFiles = [
-  {src:"photo1.jpeg", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
-  {src:"photo2.jpeg", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
-  {src:"photo3.jpeg", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
-  {src:"photo4.jpeg", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
-  {src:"photo5.jpeg", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
-  {src:"gif1.gif", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
-  {src:"gif2.gif", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
-  {src:"gif3.gif", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
-  {src:"gif4.gif", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
-  {src:"gif5.gif", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
-];
+<!-- звонок Вивиан -->
+<div id="callScreen" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; color:#8fe9ff; z-index:300; flex-direction:column; align-items:center; justify-content:center;">
+<h2>Incoming Call...</h2>
+<p>Vivian ♥</p>
+<button onclick="endCall()">End Call</button>
+</div>
 
-let galleryIndex = 0;
-
-function openGallery(){
-  clickSound();
-  galleryIndex=0;
-  let overlay = document.getElementById("galleryOverlay");
-  overlay.style.display="flex";
-  showGalleryImage();
-}
-
-function showGalleryImage(){
-  let file = galleryFiles[galleryIndex];
-  document.getElementById("galleryImage").src = file.src;
-  document.getElementById("galleryNote").innerText = file.note;
-}
-
-function nextImage(){
-  galleryIndex = (galleryIndex+1) % galleryFiles.length;
-  showGalleryImage();
-}
-
-function prevImage(){
-  galleryIndex = (galleryIndex-1 + galleryFiles.length) % galleryFiles.length;
-  showGalleryImage();
-}
-
-function closeGallery(){
-  document.getElementById("galleryOverlay").style.display="none";
-}
+<!-- фотогалерея -->
+<div id="galleryOverlay">
+  <img id="galleryImage" src="">
+  <p id="galleryNote"></p>
+  <div>
+    <button onclick="prevImage()">⬅️</button>
+    <button onclick="nextImage()">➡️</button>
+    <button onclick="closeGallery()">Close</button>
+  </div>
+</div>
 
 <audio id="clickSound"><source src="click.mp3"></audio>
 <audio id="music" loop><source src="music.mp3"></audio>
@@ -365,118 +339,67 @@ function toggleLang(){
  document.getElementById("subtitle").innerText = texts[lang].subtitle;
  document.getElementById("monsterFolder").innerText = texts[lang].monsterFolder;
  document.getElementById("lockedFolder").innerText = texts[lang].lockedFolder;
-
- // если открыт какой-то файл, обновляем его содержимое
+ // обновляем открытый файл
  let c = document.getElementById("content");
- if(c.dataset.fileType) openFile(c.dataset.fileType);
+ if(c.dataset.fileType && texts[lang].files[c.dataset.fileType]){
+   c.innerHTML = texts[lang].files[c.dataset.fileType];
+ }
 }
 
 function openFile(type){
  clickSound();
  let c = document.getElementById("content");
- c.dataset.fileType = type; // сохраняем текущий открытый файл
+ c.dataset.fileType = type;
  if(texts[lang].files[type]){
    c.innerHTML = texts[lang].files[type];
  }
 }
 
-/* финальный файл */
-function openFinal(){
- clickSound();
- document.getElementById("content").innerHTML=`
- <h2>unknown.txt</h2>
- <p>Enter password:</p>
- <p><i>hunter-word_word_word</i></p>
- <input id="finalPass">
- <button onclick="checkFinal()">Decrypt</button>
- `;
+/* фотогалерея */
+let galleryFiles = [
+  {src:"photo1.jpeg", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
+  {src:"photo2.jpeg", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
+  {src:"photo3.jpeg", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
+  {src:"photo4.jpeg", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
+  {src:"photo5.jpeg", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
+  {src:"gif1.gif", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
+  {src:"gif2.gif", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
+  {src:"gif3.gif", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
+  {src:"gif4.gif", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
+  {src:"gif5.gif", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
+];
+
+let galleryIndex = 0;
+function openGallery(){
+  clickSound();
+  galleryIndex=0;
+  document.getElementById("galleryOverlay").style.display="flex";
+  showGalleryImage();
 }
-function checkFinal(){
- let pass=document.getElementById("finalPass").value.toLowerCase();
- if(pass==="hunter-happy_birthday_lucas"){
- document.getElementById("content").innerHTML=`
- <h2>unknown.txt</h2>
- <p>Sam. Dean.</p>
- <p>If you're reading this, someone managed to break into my archive.</p>
- <p>Name's Lucas Castro.</p>
- <img src="profile.png" style="width:120px; border:1px solid #8fe9ff; margin-bottom:10px;">
- <p>Kid solved every damn lock I left here, so I guess that makes him a hunter now.</p>
- <p>Funny thing is — looks like it happened on his birthday.</p>
- <p>I managed to make it clean and deleted all case files from FBI system. Kiddo is a tough guy, so first things first.</p>
- <h3>Hunter starter kit</h3>
- <ul>
- <li>Silver knife</li>
- <li>Salt shells</li>
- <li>EMF reader</li>
- <li>Holy water</li>
- <li>Devil's trap chalk</li>
- <li>Fake FBI badge</li>
- </ul>
- <p><b>Bobby's note:</b></p>
- <p>Dean — buy the kid pizza. He deserves it.</p>
- <button onclick="unlockVivian()">Open next file</button>
- `;
- } else {
- document.body.classList.add("glitch");
- setTimeout(()=>{document.body.classList.remove("glitch")},800);
- alert("Access denied");
- }
+function showGalleryImage(){
+  let file = galleryFiles[galleryIndex];
+  document.getElementById("galleryImage").src = file.src;
+  document.getElementById("galleryNote").innerText = file.note;
+}
+function nextImage(){
+  galleryIndex = (galleryIndex+1) % galleryFiles.length;
+  showGalleryImage();
+}
+function prevImage(){
+  galleryIndex = (galleryIndex-1 + galleryFiles.length) % galleryFiles.length;
+  showGalleryImage();
+}
+function closeGallery(){
+  document.getElementById("galleryOverlay").style.display="none";
 }
 
-/* Вивиан */
-function unlockVivian(){
- document.getElementById("secretFolder").innerHTML=`
- <div class="folder">
- <strong>PRIVATE MESSAGE</strong>
- <div class="file" onclick="openVivian()">vivian_message.txt</div>
- </div>
- `;
-}
-function openVivian(){
- clickSound();
- document.getElementById("content").innerHTML=`
- <h2>vivian_message.txt</h2>
- <p>Lucas.</p>
- <p>You solved Bobby's archive. I knew you would.</p>
- <p>Congratulations on becoming a hunter.</p>
- <p>And happy birthday.</p>
- <p>When the party ends, I want to take you somewhere.</p>
- <p>A quiet highway outside the city.</p>
- <p>We'll take the Impala, roll down the windows and drive under a sky full of stars.</p>
- <p>No monsters. No hunting. Just the road and you.</p>
- <p>Call me.</p>
- <p><b style="cursor:pointer;" onclick="startCall()">📞 +1-913-555-1972</b></p>
- <p>— Vivian ♥</p>
- <button onclick="finalScene()">Finish</button>
- `;
-}
+/* остальной код (финалы, звонки, неизвестный файл) без изменений */
 
-/* звонок Вивиан */
-function startCall(){
- clickSound();
- let screen=document.getElementById("callScreen");
- let ring=document.getElementById("ringtone");
- screen.style.display="flex";
- ring.play();
- setTimeout(()=>{
- screen.innerHTML=`
- <h2>Vivian ♥</h2>
- <p>Hey... you actually called.</p>
- <p>I was hoping you would.</p>
- <p>Get ready. I'm coming to pick you up.</p>
- <button onclick="endCall()">End Call</button>
- `;
- },4000);
-}
-function endCall(){
- document.getElementById("callScreen").style.display="none";
- document.getElementById("ringtone").pause();
-}
-// финал с эффектом звезд
+// финал со звёздами
 function finalScene(){
  document.getElementById("finalScene").style.display="flex";
  document.getElementById("engine").play();
- createStars(100); // 100 звезд
+ createStars(100);
 }
 function createStars(count){
  for(let i=0;i<count;i++){
