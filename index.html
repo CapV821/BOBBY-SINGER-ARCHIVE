@@ -211,14 +211,12 @@ h1{ text-shadow:0 0 12px #33e0ff; }
 
 <div id="hintBox"></div>
 
-<!-- звонок Вивиан -->
 <div id="callScreen" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; color:#8fe9ff; z-index:300; flex-direction:column; align-items:center; justify-content:center;">
 <h2>Incoming Call...</h2>
 <p>Vivian ♥</p>
 <button onclick="endCall()">End Call</button>
 </div>
 
-<!-- фотогалерея -->
 <div id="galleryOverlay">
   <img id="galleryImage" src="">
   <p id="galleryNote"></p>
@@ -287,24 +285,12 @@ let texts = {
    lockedFolder:"LOCKED FILE",
    photoFolder:"PHOTO ARCHIVE",
    files:{
-     vampire:`<h2>VAMPIRE / Vampire</h2>
-<p>Vampires live in nests and replace missing people quietly.</p>
-<p>Weakness: silver blade.</p>
-<p>Bobby left coded word:</p><b>MDCCY</b>
-<p>Old hunters used Caesar cipher (shift 5).</p>`,
-     wendigo:`<h2>WENDIGO / Wendigo</h2>
-<p>Ancient cannibal spirit living in forests.</p>
-<p>Bobby left scrambled letters:</p><b>YTRHDABRI</b><p>Try an anagram!</p>`,
-     ghost:`<h2>GHOST / Ghost</h2>
-<p>Lonely<br>Unfinished<br>Cold<br>Angry<br>Spirits</p>`,
-     werewolf:`<h2>WEREWOLF / Оборотень</h2>
-<p>Random notes Bobby accidentally saved here:</p>
-<ul>
-<li>Check salt traps at full moon.</li>
-<li>Don’t forget holy water in first aid kit.</li>
-<li>Random number: 42</li>
-<li>Dean, fix this! Don’t be lazy!</li>
-</ul>`
+     vampire:`<h2>VAMPIRE / Vampire</h2><p>Vampires live in nests and replace missing people quietly.</p><p>Weakness: silver blade.</p><p>Bobby left coded word:</p><b>MDCCY</b><p>Old hunters used Caesar cipher (shift 5).</p>`,
+     wendigo:`<h2>WENDIGO / Wendigo</h2><p>Ancient cannibal spirit living in forests.</p><p>Bobby left scrambled letters:</p><b>YTRHDABRI</b><p>Try an anagram!</p>`,
+     ghost:`<h2>GHOST / Ghost</h2><p>Lonely<br>Unfinished<br>Cold<br>Angry<br>Spirits</p>`,
+     werewolf:`<h2>WEREWOLF / Werewolf</h2><p>Random notes Bobby accidentally saved here:</p><ul><li>Check salt traps at full moon.</li><li>Don’t forget holy water in first aid kit.</li><li>Random number: 42</li><li>Dean, fix this! Don’t be lazy!</li></ul>`,
+     photodeantinder:`<h2>photodeantinder.jpeg</h2><img src="photodeantinder.jpeg" style="max-width:80%; margin-bottom:10px;"><p><b>Bobby's note:</b></p><p>Dean.<br><br>I accidentally found your Tinder profile.<br>And I haven't laughed like that in years.<br><br>Seriously — "loves pie and long drives"? Real smooth.<br><br>Don't let Sam see this. Ever.<br><br>— Bobby</p>`,
+     unknown:`<h2>unknown.txt</h2><p>Sam. Dean.</p><p>If you're reading this, someone managed to break into my archive.</p><p>Name's Lucas Castro.</p><img src="profile.png" style="width:120px; border:1px solid #8fe9ff; margin-bottom:10px;"><p>Kid solved every damn lock I left here, so I guess that makes him a hunter now.</p><p>Funny thing is — looks like it happened on his birthday.</p><p>I managed to make it clean and deleted all case files from FBI system. Kiddo is a tough guy, so first things first.</p><h3>Hunter starter kit</h3><ul><li>Silver knife</li><li>Salt shells</li><li>EMF reader</li><li>Holy water</li><li>Devil's trap chalk</li><li>Fake FBI badge</li></ul><p><b>Bobby's note:</b></p><p>Dean — buy the kid pizza. He deserves it.</p>`
    },
    hints:{
      vampire:"Hint: Try decoding MDCCY using Caesar cipher with shift 5.",
@@ -319,24 +305,12 @@ let texts = {
    lockedFolder:"ЗАШИФРОВАННЫЙ ФАЙЛ",
    photoFolder:"ФОТОАРХИВ",
    files:{
-     vampire:`<h2>Вампир / Vampire</h2>
-<p>Вампиры живут в гнёздах и тихо заменяют пропавших людей.</p>
-<p>Слабость: серебряный клинок.</p>
-<p>Бобби оставил закодированное слово:</p><b>MDCCY</b>
-<p>Старые охотники использовали шифр Цезаря (сдвиг 5).</p>`,
-     wendigo:`<h2>Вендиго / Wendigo</h2>
-<p>Древний каннибальский дух, живущий в лесах.</p>
-<p>Бобби оставил перепутанные буквы:</p><b>YTRHDABRI</b><p>Попробуй анаграмму!</p>`,
-     ghost:`<h2>Призрак / Ghost</h2>
-<p>Одинокий<br>Незавершённый<br>Холодный<br>Злой<br>Дух</p>`,
-     werewolf:`<h2>Оборотень / Werewolf</h2>
-<p>Случайные заметки Бобби:</p>
-<ul>
-<li>Проверить соляные ловушки при полной луне.</li>
-<li>Не забудь святую воду в аптечке.</li>
-<li>Случайное число: 42</li>
-<li>Дин, исправь это! Не ленись!</li>
-</ul>`
+     vampire:`<h2>Вампир / Vampire</h2><p>Вампиры живут в гнёздах и тихо заменяют пропавших людей.</p><p>Слабость: серебряный клинок.</p><p>Бобби оставил закодированное слово:</p><b>MDCCY</b><p>Старые охотники использовали шифр Цезаря (сдвиг 5).</p>`,
+     wendigo:`<h2>Вендиго / Wendigo</h2><p>Древний каннибальский дух, живущий в лесах.</p><p>Бобби оставил перепутанные буквы:</p><b>YTRHDABRI</b><p>Попробуй анаграмму!</p>`,
+     ghost:`<h2>Призрак / Ghost</h2><p>Одинокий<br>Незавершённый<br>Холодный<br>Злой<br>Дух</p>`,
+     werewolf:`<h2>Оборотень / Werewolf</h2><p>Случайные заметки Бобби:</p><ul><li>Проверить соляные ловушки при полной луне.</li><li>Не забудь святую воду в аптечке.</li><li>Случайное число: 42</li><li>Дин, исправь это! Не ленись!</li></ul>`,
+     photodeantinder:`<h2>photodeantinder.jpeg</h2><img src="photodeantinder.jpeg" style="max-width:80%; margin-bottom:10px;"><p><b>Заметка Бобби:</b></p><p>Дин.<br><br>Я случайно нашёл твой профиль в Tinder.<br>И я так давно не смеялся.<br><br>Серьёзно — "любит пироги и длинные поездки"? Красиво.<br><br>Никогда не показывай это Сэму.<br><br>— Бобби</p>`,
+     unknown:`<h2>unknown.txt</h2><p>Сэм. Дин.</p><p>Если ты читаешь это, кто-то сумел взломать мой архив.</p><p>Имя — Лукас Кастро.</p><img src="profile.png" style="width:120px; border:1px solid #8fe9ff; margin-bottom:10px;"><p>Ребёнок открыл все мои замки, так что теперь он охотник.</p><p>Забавное совпадение — похоже, это произошло в его день рождения.</p><p>Я очистил систему и удалил все дела из базы ФБР. Парень крепкий, так что сначала самое главное.</p><h3>Набор начинающего охотника</h3><ul><li>Серебряный нож</li><li>Соляные патроны</li><li>EMF-детектор</li><li>Святая вода</li><li>Мел для ловушек дьявола</li><li>Фальшивый значок ФБР</li></ul><p><b>Заметка Бобби:</b></p><p>Дин — купи парню пиццу. Он заслужил.</p>`
    },
    hints:{
      vampire:"Подсказка: Раскодируй MDCCY с помощью шифра Цезаря с сдвигом 5.",
@@ -402,28 +376,8 @@ function checkFinal(){
  let pass=document.getElementById("finalPass").value.toLowerCase();
  if(pass==="hunter-happy_birthday_lucas"){
    let c=document.getElementById("content");
-   c.innerHTML=`
-<h2>unknown.txt</h2>
-<p>Sam. Dean.</p>
-<p>If you're reading this, someone managed to break into my archive.</p>
-<p>Name's Lucas Castro.</p>
-<img src="profile.png" style="width:120px; border:1px solid #8fe9ff; margin-bottom:10px;">
-<p>Kid solved every damn lock I left here, so I guess that makes him a hunter now.</p>
-<p>Funny thing is — looks like it happened on his birthday.</p>
-<p>I managed to make it clean and deleted all case files from FBI system. Kiddo is a tough guy, so first things first.</p>
-<h3>Hunter starter kit</h3>
-<ul>
-<li>Silver knife</li>
-<li>Salt shells</li>
-<li>EMF reader</li>
-<li>Holy water</li>
-<li>Devil's trap chalk</li>
-<li>Fake FBI badge</li>
-</ul>
-<p><b>Bobby's note:</b></p>
-<p>Dean — buy the kid pizza. He deserves it.</p>
-<button onclick="unlockVivian()">Open next file</button>
-`;
+   c.dataset.fileType = "unknown";
+   c.innerHTML = texts[lang].files.unknown + `<button onclick="unlockVivian()">Open next file</button>`;
  } else {
    document.body.classList.add("glitch");
    setTimeout(()=>{document.body.classList.remove("glitch")},800);
@@ -434,16 +388,17 @@ function checkFinal(){
 // ---------- Вивиан ----------
 function unlockVivian(){
  document.getElementById("secretFolder").innerHTML=`
-<div class="folder">
-<strong>PRIVATE MESSAGE</strong>
-<div class="file" onclick="openVivian()">vivian_message.txt</div>
-</div>
-`;
+ <div class="folder">
+ <strong>PRIVATE MESSAGE</strong>
+ <div class="file" onclick="openVivian()">vivian_message.txt</div>
+ </div>
+ `;
 }
-
 function openVivian(){
  clickSound();
- document.getElementById("content").innerHTML=`
+ let c=document.getElementById("content");
+ c.dataset.fileType = "vivian";
+ c.innerHTML=`
 <h2>vivian_message.txt</h2>
 <p>Lucas.</p>
 <p>You solved Bobby's archive. I knew you would.</p>
@@ -469,12 +424,12 @@ function startCall(){
  ring.play();
  setTimeout(()=>{
  screen.innerHTML=`
-<h2>Vivian ♥</h2>
-<p>Hey... you actually called.</p>
-<p>I was hoping you would.</p>
-<p>Get ready. I'm coming to pick you up.</p>
-<button onclick="endCall()">End Call</button>
-`;
+ <h2>Vivian ♥</h2>
+ <p>Hey... you actually called.</p>
+ <p>I was hoping you would.</p>
+ <p>Get ready. I'm coming to pick you up.</p>
+ <button onclick="endCall()">End Call</button>
+ `;
  },4000);
 }
 function endCall(){
@@ -482,26 +437,8 @@ function endCall(){
  document.getElementById("ringtone").pause();
 }
 
-// ---------- Фото Дина ----------
-function openDean(){
- clickSound();
- document.getElementById("content").innerHTML=`
-<h2>photodeantinder.jpeg</h2>
-<img src="photodeantinder.jpeg" style="max-width:80%; margin-bottom:10px;">
-<p><b>Bobby's note:</b></p>
-<p>
-Dean.<br><br>
-I accidentally found your Tinder profile.<br>
-And I haven't laughed like that in years.<br><br>
-Seriously — "loves pie and long drives"? Real smooth.<br><br>
-Don't let Sam see this. Ever.<br><br>
-— Bobby
-</p>
-`;
-}
-
 // ---------- Галерея ----------
-let galleryFiles = [
+let galleryFiles=[
   {src:"photo1.jpeg", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
   {src:"photo2.jpeg", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
   {src:"photo3.jpeg", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
@@ -535,6 +472,14 @@ function prevImage(){
 }
 function closeGallery(){
  document.getElementById("galleryOverlay").style.display="none";
+}
+
+// ---------- photodeantinder ----------
+function openDean(){
+ clickSound();
+ let c=document.getElementById("content");
+ c.dataset.fileType = "photodeantinder";
+ c.innerHTML = texts[lang].files.photodeantinder;
 }
 
 // ---------- Финал ----------
