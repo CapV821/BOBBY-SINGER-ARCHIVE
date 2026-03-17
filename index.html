@@ -290,7 +290,8 @@ let texts = {
      ghost:`<h2>GHOST / Ghost</h2><p>Lonely<br>Unfinished<br>Cold<br>Angry<br>Spirits</p>`,
      werewolf:`<h2>WEREWOLF / Werewolf</h2><p>Random notes Bobby accidentally saved here:</p><ul><li>Check salt traps at full moon.</li><li>Don’t forget holy water in first aid kit.</li><li>Random number: 42</li><li>Dean, fix this! Don’t be lazy!</li></ul>`,
      photodeantinder:`<h2>photodeantinder.jpeg</h2><img src="photodeantinder.jpeg" style="max-width:80%; margin-bottom:10px;"><p><b>Bobby's note:</b></p><p>Dean.<br><br>I accidentally found your Tinder profile.<br>And I haven't laughed like that in years.<br><br>Seriously — "loves pie and long drives"? Real smooth.<br><br>Don't let Sam see this. Ever.<br><br>— Bobby</p>`,
-     unknown:`<h2>unknown.txt</h2><p>Sam. Dean.</p><p>If you're reading this, someone managed to break into my archive.</p><p>Name's Lucas Castro.</p><img src="profile.png" style="width:120px; border:1px solid #8fe9ff; margin-bottom:10px;"><p>Kid solved every damn lock I left here, so I guess that makes him a hunter now.</p><p>Funny thing is — looks like it happened on his birthday.</p><p>I managed to make it clean and deleted all case files from FBI system. Kiddo is a tough guy, so first things first.</p><h3>Hunter starter kit</h3><ul><li>Silver knife</li><li>Salt shells</li><li>EMF reader</li><li>Holy water</li><li>Devil's trap chalk</li><li>Fake FBI badge</li></ul><p><b>Bobby's note:</b></p><p>Dean — buy the kid pizza. He deserves it.</p>`
+     unknown:`<h2>unknown.txt</h2><p>Sam. Dean.</p><p>If you're reading this, someone managed to break into my archive.</p><p>Name's Lucas Castro.</p><img src="profile.png" style="width:120px; border:1px solid #8fe9ff; margin-bottom:10px;"><p>Kid solved every damn lock I left here, so I guess that makes him a hunter now.</p><p>Funny thing is — looks like it happened on his birthday.</p><p>I managed to make it clean and deleted all case files from FBI system. Kiddo is a tough guy, so first things first.</p><h3>Hunter starter kit</h3><ul><li>Silver knife</li><li>Salt shells</li><li>EMF reader</li><li>Holy water</li><li>Devil's trap chalk</li><li>Fake FBI badge</li></ul><p><b>Bobby's note:</b></p><p>Dean — buy the kid pizza. He deserves it.</p>`,
+     vivian:`<h2>vivian_message.txt</h2><div style="display:flex; gap:20px; align-items:flex-start;"><img src="vivian.jpeg" style="width:150px; border:1px solid #8fe9ff;"><div><p>Lucas.</p><p>You solved Bobby's archive. I knew you would.</p><p>Congratulations on becoming a hunter.</p><p>And happy birthday.</p><p>When the party ends, I want to take you somewhere.</p><p>A quiet highway outside the city.</p><p>We'll take the Impala, roll down the windows and drive under a sky full of stars.</p><p>No monsters. No hunting. Just the road and you.</p><p>Call me.</p><p><b style="cursor:pointer;" onclick="startCall()">📞 +1-913-555-1972</b></p><p>— Vivian ♥</p><button onclick="finalScene()">Finish</button></div></div>`
    },
    hints:{
      vampire:"Hint: Try decoding MDCCY using Caesar cipher with shift 5.",
@@ -308,9 +309,10 @@ let texts = {
      vampire:`<h2>Вампир / Vampire</h2><p>Вампиры живут в гнёздах и тихо заменяют пропавших людей.</p><p>Слабость: серебряный клинок.</p><p>Бобби оставил закодированное слово:</p><b>MDCCY</b><p>Старые охотники использовали шифр Цезаря (сдвиг 5).</p>`,
      wendigo:`<h2>Вендиго / Wendigo</h2><p>Древний каннибальский дух, живущий в лесах.</p><p>Бобби оставил перепутанные буквы:</p><b>YTRHDABRI</b><p>Попробуй анаграмму!</p>`,
      ghost:`<h2>Призрак / Ghost</h2><p>Одинокий<br>Незавершённый<br>Холодный<br>Злой<br>Дух</p>`,
-     werewolf:`<h2>Оборотень / Werewolf</h2><p>Случайные заметки Бобби:</p><ul><li>Проверить соляные ловушки при полной луне.</li><li>Не забудь святую воду в аптечке.</li><li>Случайное число: 42</li><li>Дин, исправь это! Не ленись!</li></ul>`,
+     werewolf:`<h2>WEREWOLF / Оборотень</h2><p>Случайные заметки Бобби:</p><ul><li>Проверить соляные ловушки при полной луне.</li><li>Не забудь святую воду в аптечке.</li><li>Случайное число: 42</li><li>Дин, исправь это! Не ленись!</li></ul>`,
      photodeantinder:`<h2>photodeantinder.jpeg</h2><img src="photodeantinder.jpeg" style="max-width:80%; margin-bottom:10px;"><p><b>Заметка Бобби:</b></p><p>Дин.<br><br>Я случайно нашёл твой профиль в Tinder.<br>И я так давно не смеялся.<br><br>Серьёзно — "любит пироги и длинные поездки"? Красиво.<br><br>Никогда не показывай это Сэму.<br><br>— Бобби</p>`,
-     unknown:`<h2>unknown.txt</h2><p>Сэм. Дин.</p><p>Если ты читаешь это, кто-то сумел взломать мой архив.</p><p>Имя — Лукас Кастро.</p><img src="profile.png" style="width:120px; border:1px solid #8fe9ff; margin-bottom:10px;"><p>Ребёнок открыл все мои замки, так что теперь он охотник.</p><p>Забавное совпадение — похоже, это произошло в его день рождения.</p><p>Я очистил систему и удалил все дела из базы ФБР. Парень крепкий, так что сначала самое главное.</p><h3>Набор начинающего охотника</h3><ul><li>Серебряный нож</li><li>Соляные патроны</li><li>EMF-детектор</li><li>Святая вода</li><li>Мел для ловушек дьявола</li><li>Фальшивый значок ФБР</li></ul><p><b>Заметка Бобби:</b></p><p>Дин — купи парню пиццу. Он заслужил.</p>`
+     unknown:`<h2>unknown.txt</h2><p>Сэм. Дин.</p><p>Если ты читаешь это, кто-то сумел взломать мой архив.</p><p>Имя — Лукас Кастро.</p><img src="profile.png" style="width:120px; border:1px solid #8fe9ff; margin-bottom:10px;"><p>Ребёнок открыл все мои замки, так что теперь он охотник.</p><p>Забавное совпадение — похоже, это произошло в его день рождения.</p><p>Я очистил систему и удалил все дела из базы ФБР. Парень крепкий, так что сначала самое главное.</p><h3>Набор начинающего охотника</h3><ul><li>Серебряный нож</li><li>Соляные патроны</li><li>EMF-детектор</li><li>Святая вода</li><li>Мел для ловушек дьявола</li><li>Фальшивый значок ФБР</li></ul><p><b>Заметка Бобби:</b></p><p>Дин — купи парню пиццу. Он заслужил.</p>`,
+     vivian:`<h2>vivian_message.txt</h2><div style="display:flex; gap:20px; align-items:flex-start;"><img src="vivian.jpeg" style="width:150px; border:1px solid #8fe9ff;"><div><p>Лукас.</p><p>Ты открыл архив Бобби. Я знала, что ты сможешь.</p><p>Поздравляю с тем, что стал охотником.</p><p>И с днём рождения.</p><p>Когда вечеринка закончится, я хочу отвезти тебя куда-то.</p><p>Тихая трасса за городом.</p><p>Мы возьмём Импалу, опустим окна и поедем под небом, полным звёзд.</p><p>Никаких монстров. Никакой охоты. Только дорога и ты.</p><p>Позвони мне.</p><p><b style="cursor:pointer;" onclick="startCall()">📞 +1-913-555-1972</b></p><p>— Вивиан ♥</p><button onclick="finalScene()">Finish</button></div></div>`
    },
    hints:{
      vampire:"Подсказка: Раскодируй MDCCY с помощью шифра Цезаря с сдвигом 5.",
@@ -318,20 +320,23 @@ let texts = {
      ghost:"Подсказка: Духи могут быть одиноки и злы.",
      werewolf:"Подсказка: Проверь свои припасы для полной луны."
    }
- }
 };
 
+// ---------- Переключение языка ----------
 let lang="en";
 function toggleLang(){
  clickSound();
- lang = (lang==="en")?"ru":"en";
- document.getElementById("subtitle").innerText = texts[lang].subtitle;
- document.getElementById("monsterFolder").innerText = texts[lang].monsterFolder;
- document.getElementById("lockedFolder").innerText = texts[lang].lockedFolder;
- document.getElementById("photoFolder").innerText = texts[lang].photoFolder;
+ lang=(lang==="en")?"ru":"en";
+ document.getElementById("subtitle").innerHTML = texts[lang].subtitle;
+ document.getElementById("monsterFolder").innerHTML = texts[lang].monsterFolder;
+ document.getElementById("lockedFolder").innerHTML = texts[lang].lockedFolder;
+ document.getElementById("photoFolder").innerHTML = texts[lang].photoFolder;
+
  let c=document.getElementById("content");
- if(c.dataset.fileType && texts[lang].files[c.dataset.fileType]){
-   c.innerHTML = texts[lang].files[c.dataset.fileType];
+ if(c.dataset.fileType){
+   if(texts[lang].files[c.dataset.fileType]){
+     c.innerHTML=texts[lang].files[c.dataset.fileType];
+   }
  }
 }
 
@@ -339,46 +344,35 @@ function toggleLang(){
 function openFile(type){
  clickSound();
  let c=document.getElementById("content");
- c.dataset.fileType = type;
- if(texts[lang].files[type]){
-   c.innerHTML = texts[lang].files[type];
- }
+ c.dataset.fileType=type;
+ c.innerHTML=texts[lang].files[type];
 }
 
 // ---------- Подсказки ----------
 function showHint(){
+ clickSound();
  let c=document.getElementById("content");
- let box=document.getElementById("hintBox");
  if(c.dataset.fileType && texts[lang].hints[c.dataset.fileType]){
+   let box=document.getElementById("hintBox");
    box.innerText=texts[lang].hints[c.dataset.fileType];
    box.style.display="block";
-   setTimeout(()=>{box.style.display="none"},5000);
- } else {
-   box.innerText="No hint available.";
-   box.style.display="block";
-   setTimeout(()=>{box.style.display="none"},3000);
+   setTimeout(()=>{box.style.display="none"},4000);
  }
 }
 
-// ---------- LOCKED FILE ----------
+// ---------- Финальный файл ----------
 function openFinal(){
  clickSound();
  let c=document.getElementById("content");
- c.innerHTML=`
-<h2>unknown.txt</h2>
-<p>Enter password:</p>
-<p><i>hunter-word_word_word</i></p>
-<input id="finalPass">
-<button onclick="checkFinal()">Decrypt</button>
-`;
+ c.dataset.fileType="unknown";
+ c.innerHTML=`<p>Enter password:</p><p><i>hunter-word_word_word</i></p><input id="finalPass"><button onclick="checkFinal()">Decrypt</button>`;
 }
 function checkFinal(){
  let pass=document.getElementById("finalPass").value.toLowerCase();
  if(pass==="hunter-happy_birthday_lucas"){
-   let c=document.getElementById("content");
-   c.dataset.fileType = "unknown";
-   c.innerHTML = texts[lang].files.unknown + `<button onclick="unlockVivian()">Open next file</button>`;
- } else {
+   openFile("unknown");
+   unlockVivian();
+ } else{
    document.body.classList.add("glitch");
    setTimeout(()=>{document.body.classList.remove("glitch")},800);
    alert("Access denied");
@@ -389,30 +383,15 @@ function checkFinal(){
 function unlockVivian(){
  document.getElementById("secretFolder").innerHTML=`
  <div class="folder">
- <strong>PRIVATE MESSAGE</strong>
+ <strong>${lang==="en"?"PRIVATE MESSAGE":"ЧАСТНОЕ СООБЩЕНИЕ"}</strong>
  <div class="file" onclick="openVivian()">vivian_message.txt</div>
- </div>
- `;
+ </div>`;
 }
 function openVivian(){
  clickSound();
  let c=document.getElementById("content");
- c.dataset.fileType = "vivian";
- c.innerHTML=`
-<h2>vivian_message.txt</h2>
-<p>Lucas.</p>
-<p>You solved Bobby's archive. I knew you would.</p>
-<p>Congratulations on becoming a hunter.</p>
-<p>And happy birthday.</p>
-<p>When the party ends, I want to take you somewhere.</p>
-<p>A quiet highway outside the city.</p>
-<p>We'll take the Impala, roll down the windows and drive under a sky full of stars.</p>
-<p>No monsters. No hunting. Just the road and you.</p>
-<p>Call me.</p>
-<p><b style="cursor:pointer;" onclick="startCall()">📞 +1-913-555-1972</b></p>
-<p>— Vivian ♥</p>
-<button onclick="finalScene()">Finish</button>
-`;
+ c.dataset.fileType="vivian";
+ c.innerHTML=texts[lang].files.vivian;
 }
 
 // ---------- Звонок ----------
@@ -423,13 +402,13 @@ function startCall(){
  screen.style.display="flex";
  ring.play();
  setTimeout(()=>{
- screen.innerHTML=`
- <h2>Vivian ♥</h2>
- <p>Hey... you actually called.</p>
- <p>I was hoping you would.</p>
- <p>Get ready. I'm coming to pick you up.</p>
- <button onclick="endCall()">End Call</button>
- `;
+   screen.innerHTML=`
+   <h2>Vivian ♥</h2>
+   <p>Hey... you actually called.</p>
+   <p>I was hoping you would.</p>
+   <p>Get ready. I'm coming to pick you up.</p>
+   <button onclick="endCall()">End Call</button>
+   `;
  },4000);
 }
 function endCall(){
@@ -438,7 +417,7 @@ function endCall(){
 }
 
 // ---------- Галерея ----------
-let galleryFiles=[
+let galleryFiles = [
   {src:"photo1.jpeg", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
   {src:"photo2.jpeg", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
   {src:"photo3.jpeg", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
@@ -450,7 +429,7 @@ let galleryFiles=[
   {src:"gif4.gif", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
   {src:"gif5.gif", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"}
 ];
-let galleryIndex=0;
+let galleryIndex = 0;
 function openGallery(){
  clickSound();
  galleryIndex=0;
@@ -458,16 +437,16 @@ function openGallery(){
  showGalleryImage();
 }
 function showGalleryImage(){
- let file=galleryFiles[galleryIndex];
- document.getElementById("galleryImage").src=file.src;
- document.getElementById("galleryNote").innerText=file.note;
+ let file = galleryFiles[galleryIndex];
+ document.getElementById("galleryImage").src = file.src;
+ document.getElementById("galleryNote").innerText = file.note;
 }
 function nextImage(){
- galleryIndex=(galleryIndex+1)%galleryFiles.length;
+ galleryIndex = (galleryIndex+1) % galleryFiles.length;
  showGalleryImage();
 }
 function prevImage(){
- galleryIndex=(galleryIndex-1+galleryFiles.length)%galleryFiles.length;
+ galleryIndex = (galleryIndex-1 + galleryFiles.length) % galleryFiles.length;
  showGalleryImage();
 }
 function closeGallery(){
@@ -477,9 +456,7 @@ function closeGallery(){
 // ---------- photodeantinder ----------
 function openDean(){
  clickSound();
- let c=document.getElementById("content");
- c.dataset.fileType = "photodeantinder";
- c.innerHTML = texts[lang].files.photodeantinder;
+ openFile("photodeantinder");
 }
 
 // ---------- Финал ----------
@@ -494,8 +471,9 @@ function createStars(count){
    s.className="star";
    s.style.left=Math.random()*window.innerWidth+"px";
    s.style.top=Math.random()*window.innerHeight+"px";
-   s.style.width=Math.random()*2+1+"px";
-   s.style.height=s.style.width;
+   let size=Math.random()*2+1;
+   s.style.width=size+"px";
+   s.style.height=size+"px";
    s.style.animationDuration=(Math.random()*2+1)+"s";
    document.body.appendChild(s);
  }
