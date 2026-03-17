@@ -181,7 +181,7 @@ h1{ text-shadow:0 0 12px #33e0ff; }
   <div class="file" onclick="openFile('vampire')">vampire.txt</div>
   <div class="file" onclick="openFile('wendigo')">wendigo.txt</div>
   <div class="file" onclick="openFile('ghost')">ghost.txt</div>
-  <div class="file" onclick="openFile('werewolf')">Оборотень / Werewolf.txt</div>
+  <div class="file" onclick="openFile('werewolf')">werewolf.txt</div>
 </div>
 
 <div class="folder">
@@ -190,7 +190,7 @@ h1{ text-shadow:0 0 12px #33e0ff; }
 </div>
 
 <div class="folder">
-  <strong>PHOTO ARCHIVE</strong>
+  <strong id="photoFolder">PHOTO ARCHIVE</strong>
   <div class="file" onclick="openGallery()">gallery</div>
   <div class="file" onclick="openDean()">photodeantinder.jpeg</div>
 </div>
@@ -285,6 +285,7 @@ let texts = {
    subtitle:"Recovered hunter research database.",
    monsterFolder:"MONSTER FILES",
    lockedFolder:"LOCKED FILE",
+   photoFolder:"PHOTO ARCHIVE",
    files:{
      vampire:`<h2>VAMPIRE / Vampire</h2>
 <p>Vampires live in nests and replace missing people quietly.</p>
@@ -296,7 +297,7 @@ let texts = {
 <p>Bobby left scrambled letters:</p><b>YTRHDABRI</b><p>Try an anagram!</p>`,
      ghost:`<h2>GHOST / Ghost</h2>
 <p>Lonely<br>Unfinished<br>Cold<br>Angry<br>Spirits</p>`,
-     werewolf:`<h2>WEREWOLF / Werewolf</h2>
+     werewolf:`<h2>WEREWOLF / Оборотень</h2>
 <p>Random notes Bobby accidentally saved here:</p>
 <ul>
 <li>Check salt traps at full moon.</li>
@@ -316,6 +317,7 @@ let texts = {
    subtitle:"Архив охотника Бобби Сингера.",
    monsterFolder:"ФАЙЛЫ МОНСТРОВ",
    lockedFolder:"ЗАШИФРОВАННЫЙ ФАЙЛ",
+   photoFolder:"ФОТОАРХИВ",
    files:{
      vampire:`<h2>Вампир / Vampire</h2>
 <p>Вампиры живут в гнёздах и тихо заменяют пропавших людей.</p>
@@ -352,6 +354,7 @@ function toggleLang(){
  document.getElementById("subtitle").innerText = texts[lang].subtitle;
  document.getElementById("monsterFolder").innerText = texts[lang].monsterFolder;
  document.getElementById("lockedFolder").innerText = texts[lang].lockedFolder;
+ document.getElementById("photoFolder").innerText = texts[lang].photoFolder;
  let c=document.getElementById("content");
  if(c.dataset.fileType && texts[lang].files[c.dataset.fileType]){
    c.innerHTML = texts[lang].files[c.dataset.fileType];
