@@ -393,7 +393,23 @@ function closeGallery(){
   document.getElementById("galleryOverlay").style.display="none";
 }
 
-/* остальной код (финалы, звонки, неизвестный файл) без изменений */
+/* фотка Дина с Tinder */
+function openDean(){
+ clickSound();
+ document.getElementById("content").innerHTML=`
+ <h2>photodeantinder.jpeg</h2>
+ <img src="photodeantinder.jpeg" style="max-width:80%; margin-bottom:10px;">
+ <p><b>Bobby's note:</b></p>
+    <p>
+    Dean.<br><br>
+    I accidentally found your Tinder profile.<br>
+    And I haven't laughed like that in years.<br><br>
+    Seriously — "loves pie and long drives"? Real smooth.<br><br>
+    Don't let Sam see this. Ever.<br><br>
+    — Bobby
+    </p>
+ `;
+}
 
 // финал со звёздами
 function finalScene(){
