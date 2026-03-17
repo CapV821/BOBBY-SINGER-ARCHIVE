@@ -75,6 +75,7 @@ h1{ text-shadow:0 0 12px #33e0ff; }
   border:1px solid #8fe9ff;
   padding:15px;
   max-width:280px;
+  z-index:500;
 }
 
 /* загрузка */
@@ -208,6 +209,8 @@ h1{ text-shadow:0 0 12px #33e0ff; }
   </div>
 </div>
 
+<div id="hintBox"></div>
+
 <!-- звонок Вивиан -->
 <div id="callScreen" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; color:#8fe9ff; z-index:300; flex-direction:column; align-items:center; justify-content:center;">
 <h2>Incoming Call...</h2>
@@ -238,7 +241,7 @@ h1{ text-shadow:0 0 12px #33e0ff; }
 </div>
 
 <script>
-// загрузка
+// ---------- Загрузка ----------
 let bootLines=[
 "BOOTING HUNTER TERMINAL...",
 "Loading Bobby Singer Archive...",
@@ -264,21 +267,19 @@ function bootSequence(){
 }
 window.onload=bootSequence;
 
-// звук
+// ---------- Звук ----------
 function clickSound(){
  let s=document.getElementById("clickSound");
  s.currentTime=0;
  s.play();
 }
-
-// музыка
 let music=document.getElementById("music");
 function toggleAudio(){
  let panel=document.getElementById("audioPanel");
  panel.style.display = panel.style.display==="block" ? "none" : "block";
 }
 
-// многоязычные тексты
+// ---------- Перевод ----------
 let texts = {
  en:{
    subtitle:"Recovered hunter research database.",
@@ -303,6 +304,12 @@ let texts = {
 <li>Random number: 42</li>
 <li>Dean, fix this! Don’t be lazy!</li>
 </ul>`
+   },
+   hints:{
+     vampire:"Hint: Try decoding MDCCY using Caesar cipher with shift 5.",
+     wendigo:"Hint: Rearrange the letters YTRHDABRI to find the word.",
+     ghost:"Hint: Spirits might be lonely and angry.",
+     werewolf:"Hint: Check your supplies for the full moon."
    }
  },
  ru:{
@@ -328,6 +335,12 @@ let texts = {
 <li>Случайное число: 42</li>
 <li>Дин, исправь это! Не ленись!</li>
 </ul>`
+   },
+   hints:{
+     vampire:"Подсказка: Раскодируй MDCCY с помощью шифра Цезаря с сдвигом 5.",
+     wendigo:"Подсказка: Переставь буквы YTRHDABRI, чтобы получить слово.",
+     ghost:"Подсказка: Духи могут быть одиноки и злы.",
+     werewolf:"Подсказка: Проверь свои припасы для полной луны."
    }
  }
 };
@@ -339,22 +352,38 @@ function toggleLang(){
  document.getElementById("subtitle").innerText = texts[lang].subtitle;
  document.getElementById("monsterFolder").innerText = texts[lang].monsterFolder;
  document.getElementById("lockedFolder").innerText = texts[lang].lockedFolder;
- let c = document.getElementById("content");
+ let c=document.getElementById("content");
  if(c.dataset.fileType && texts[lang].files[c.dataset.fileType]){
    c.innerHTML = texts[lang].files[c.dataset.fileType];
  }
 }
 
+// ---------- Файлы ----------
 function openFile(type){
  clickSound();
- let c = document.getElementById("content");
+ let c=document.getElementById("content");
  c.dataset.fileType = type;
  if(texts[lang].files[type]){
    c.innerHTML = texts[lang].files[type];
  }
 }
 
-// LOCKED FILE
+// ---------- Подсказки ----------
+function showHint(){
+ let c=document.getElementById("content");
+ let box=document.getElementById("hintBox");
+ if(c.dataset.fileType && texts[lang].hints[c.dataset.fileType]){
+   box.innerText=texts[lang].hints[c.dataset.fileType];
+   box.style.display="block";
+   setTimeout(()=>{box.style.display="none"},5000);
+ } else {
+   box.innerText="No hint available.";
+   box.style.display="block";
+   setTimeout(()=>{box.style.display="none"},3000);
+ }
+}
+
+// ---------- LOCKED FILE ----------
 function openFinal(){
  clickSound();
  let c=document.getElementById("content");
@@ -399,6 +428,7 @@ function checkFinal(){
  }
 }
 
+// ---------- Вивиан ----------
 function unlockVivian(){
  document.getElementById("secretFolder").innerHTML=`
 <div class="folder">
@@ -427,7 +457,7 @@ function openVivian(){
 `;
 }
 
-// звонок Вивиан
+// ---------- Звонок ----------
 function startCall(){
  clickSound();
  let screen=document.getElementById("callScreen");
@@ -449,7 +479,7 @@ function endCall(){
  document.getElementById("ringtone").pause();
 }
 
-// фотка Дина с Tinder
+// ---------- Фото Дина ----------
 function openDean(){
  clickSound();
  document.getElementById("content").innerHTML=`
@@ -467,7 +497,7 @@ Don't let Sam see this. Ever.<br><br>
 `;
 }
 
-// фотогалерея
+// ---------- Галерея ----------
 let galleryFiles = [
   {src:"photo1.jpeg", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
   {src:"photo2.jpeg", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
@@ -478,7 +508,7 @@ let galleryFiles = [
   {src:"gif2.gif", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
   {src:"gif3.gif", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
   {src:"gif4.gif", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
-  {src:"gif5.gif", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
+  {src:"gif5.gif", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"}
 ];
 let galleryIndex=0;
 function openGallery(){
@@ -504,7 +534,7 @@ function closeGallery(){
  document.getElementById("galleryOverlay").style.display="none";
 }
 
-// финал со звёздами
+// ---------- Финал ----------
 function finalScene(){
  document.getElementById("finalScene").style.display="flex";
  document.getElementById("engine").play();
