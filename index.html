@@ -306,7 +306,7 @@ function openFile(type){
  }
  if(type==="werewolf"){
  c.innerHTML=`
- <h2>ОБОРОТЕНЬ / WEREWOLF</h2>
+ <h2>WEREWOLF / Оборотень</h2>
  <p>Random notes Bobby accidentally saved here:</p>
  <ul>
  <li>Check salt traps at full moon.</li>
@@ -413,16 +413,16 @@ function endCall(){
 
 /* фотогалерея */
 let galleryFiles = [
-  {src:"photo1.jpeg", note:"Дин, пожалуйста, перестань страдать херней в логове."},
-  {src:"photo2.jpeg", note:"Дин, пожалуйста, перестань страдать херней в логове."},
-  {src:"photo3.jpeg", note:"Дин, пожалуйста, перестань страдать херней в логове."},
-  {src:"photo4.jpeg", note:"Дин, пожалуйста, перестань страдать херней в логове."},
-  {src:"photo5.jpeg", note:"Дин, пожалуйста, перестань страдать херней в логове."},
-  {src:"gif1.gif", note:"Дин, пожалуйста, перестань страдать херней в логове."},
-  {src:"gif2.gif", note:"Дин, пожалуйста, перестань страдать херней в логове."},
-  {src:"gif3.gif", note:"Дин, пожалуйста, перестань страдать херней в логове."},
-  {src:"gif4.gif", note:"Дин, пожалуйста, перестань страдать херней в логове."},
-  {src:"gif5.gif", note:"Дин, пожалуйста, перестань страдать херней в логове."},
+  {src:"photo1.jpeg", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
+  {src:"photo2.jpeg", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
+  {src:"photo3.jpeg", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
+  {src:"photo4.jpeg", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
+  {src:"photo5.jpeg", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
+  {src:"gif1.gif", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
+  {src:"gif2.gif", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
+  {src:"gif3.gif", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
+  {src:"gif4.gif", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
+  {src:"gif5.gif", note:"Dean, please stop screwing around in the bunker. What am I supposed to tell other hunters who find this?"},
 ];
 
 let galleryIndex = 0;
@@ -455,7 +455,15 @@ function openDean(){
  document.getElementById("content").innerHTML=`
  <h2>photodeantinder.jpeg</h2>
  <img src="photodeantinder.jpeg" style="max-width:80%; margin-bottom:10px;">
- <p>Bobby: Случайно наткнулся на тиндер Дина 😆 Сэмми, не дай бог, не узнает!</p>
+ <p><b>Bobby's note:</b></p>
+    <p>
+    Dean.<br><br>
+    I accidentally found your Tinder profile.<br>
+    And I haven't laughed like that in years.<br><br>
+    Seriously — "loves pie and long drives"? Real smooth.<br><br>
+    Don't let Sam see this. Ever.<br><br>
+    — Bobby
+    </p>
  `;
 }
 
